@@ -1,0 +1,26 @@
+# === SENSIBLE — NE JAMAIS POUSSER ===
+# Cookies de session TikTok (identifiant vivant)
+.tiktok_cookies.json
+# Profil navigateur persistant (contient la session)
+.tiktok_profile/
+# Base de données des résultats = données personnelles de vraies personnes
+.osint_store.db
+*.db
+# Fichiers d'environnement / secrets éventuels
+.env
+*.key
+
+# === Environnement Python ===
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# === Divers ===
+*.log
+.DS_Store
+# Exports générés localement
+*.csv
+*.xlsx
+scraping.*

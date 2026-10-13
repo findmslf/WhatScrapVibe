@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>:: Le Guide du Scrapeur :: Scrap-O-Rap ::</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 10px 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #000;
+    background: #51628a url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><rect width='16' height='16' fill='%2351628a'/><rect width='8' height='8' fill='%234b5c82'/><rect x='8' y='8' width='8' height='8' fill='%234b5c82'/></svg>") repeat;
+  }
+  a { color: #006699; text-decoration: none; }
+  a:hover { color: #DD6900; text-decoration: underline; }
+  .page { width: 760px; max-width: 96%; margin: 0 auto; }
+
+  .logo-bar { background: #006699; border: 1px solid #000; padding: 10px 14px; text-align: center; }
+  .wordart {
+    font-family: Impact, "Arial Black", sans-serif; font-weight: 900; font-size: 34px; margin: 0;
+    color: #ffcc00; text-transform: uppercase; font-style: italic;
+    text-shadow: 2px 2px 0 #cc0000, 3px 3px 0 #000, -1px -1px 0 #fff;
+  }
+  .slogan { font-family: "Comic Sans MS", cursive; color: #fff; font-size: 12px; margin-top: 4px; }
+
+  .toplinks { background: #DEE3E7; border: 1px solid #000; padding: 4px 8px; font-weight: bold; font-size: 11px; color: #006699; margin: 6px 0; }
+
+  .cat { background: #006699; color: #fff; font-weight: bold; font-size: 11px; padding: 5px 9px; border: 1px solid #000; border-bottom: none; }
+  .cat .arrow { color: #ffcc00; }
+  .panel { background: #E5E5E5; border: 1px solid #000; padding: 10px; margin-bottom: 14px; }
+  .panel .inner { background: #fff; border: 1px solid #98AAB1; padding: 10px; }
+
+  /* Sommaire */
+  .toc ol { margin: 4px 0 0 20px; padding: 0; }
+  .toc li { margin: 3px 0; font-size: 12px; }
+  .toc .d { color: #666; font-weight: normal; }
+
+  /* Posts = articles */
+  .post { display: flex; border: 1px solid #000; margin-bottom: 14px; background: #fff; }
+  .post-side { width: 128px; flex: none; background: #DEE3E7; border-right: 1px solid #98AAB1; padding: 9px; text-align: center; font-size: 10px; color: #333; }
+  .post-side svg { width: 44px; height: auto; }
+  .pseudo { color: #cc0000; font-weight: bold; font-size: 12px; margin-top: 4px; }
+  .rank { color: #006699; margin-top: 2px; }
+  .post-side .stat { margin-top: 6px; color: #777; }
+  .post-body { flex: 1; min-width: 0; }
+  .post-head { background: #EFEFEF; border-bottom: 1px solid #98AAB1; padding: 5px 9px; font-size: 11px; color: #555; }
+  .post-head b { color: #cc0000; font-size: 13px; }
+  .post-content { padding: 12px 14px; font-size: 12px; line-height: 1.65; }
+  .post-content h3 { color: #006699; font-size: 13px; margin: 15px 0 5px; border-bottom: 1px dotted #99b; padding-bottom: 2px; }
+  .post-content h3:first-child { margin-top: 0; }
+  .post-content ul, .post-content ol { margin: 6px 0 8px 20px; padding: 0; }
+  .post-content li { margin: 3px 0; }
+  .post-content p { margin: 7px 0; }
+  code { background: #FFFFCC; border: 1px solid #DDDD99; padding: 0 3px; font-family: "Courier New", monospace; color: #666600; }
+  pre { background: #0d0d0d; color: #19e619; padding: 9px 11px; overflow-x: auto; font-family: "Courier New", monospace; font-size: 11px; border: 1px solid #0a8f00; line-height: 1.5; }
+  .tip { background: #EFFBEF; border: 1px solid #86c878; padding: 7px 10px; margin: 9px 0; }
+  .warn { background: #FFF2F2; border: 1px solid #e0a0a0; padding: 7px 10px; margin: 9px 0; }
+  .tip b { color: #0a7a2a; } .warn b { color: #cc0000; }
+  .totop { font-size: 10px; margin-top: 6px; display: inline-block; }
+
+  .footer { background: #DEE3E7; border: 1px solid #000; padding: 6px 9px; font-size: 10px; color: #444; text-align: center; margin-top: 4px; }
+
+  @media (max-width: 560px) {
+    .page { width: 100%; }
+    .wordart { font-size: 24px; }
+    .post { flex-direction: column; }
+    .post-side { width: 100%; display: flex; align-items: center; gap: 10px; justify-content: center; border-right: none; border-bottom: 1px solid #98AAB1; }
+    .post-side svg { width: 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="logo-bar">
+    <div class="wordart">Le Guide du Scrapeur</div>
+    <div class="slogan">* tout ce qu'un debutant doit savoir pour gratter comme un vrai *</div>
+  </div>
+
+  <div class="toplinks">
+    &raquo; <a href="/">Retour a l'outil</a> &nbsp;&middot;&nbsp; <a href="#top">Sommaire</a> &nbsp;&middot;&nbsp; <a href="#a8">Les galeres du debutant</a>
+  </div>
+
+  <!-- Sommaire -->
+  <a id="top"></a>
+  <div class="cat"><span class="arrow">&raquo;</span> [ SOMMAIRE ] Le parcours du debutant (lis dans l'ordre frero)</div>
+  <div class="panel toc"><div class="inner">
+    <ol>
+      <li><a href="#a1">C'est quoi le web scraping ?</a> <span class="d">&mdash; les bases et le vocabulaire</span></li>
+      <li><a href="#a2">Comment marche une page web</a> <span class="d">&mdash; HTML &amp; CSS pour le scrapeur</span></li>
+      <li><a href="#a3">Trouver les bons selecteurs CSS</a> <span class="d">&mdash; avec l'outil "Inspecter"</span></li>
+      <li><a href="#a4">Statique vs dynamique</a> <span class="d">&mdash; quand activer le Mode JS</span></li>
+      <li><a href="#a5">Scraper proprement et dans les regles</a> <span class="d">&mdash; robots.txt, CGU, RGPD</span></li>
+      <li><a href="#a6">Les outils du metier</a> <span class="d">&mdash; de ce site a Python</span></li>
+      <li><a href="#a7">S'entrainer pour de vrai</a> <span class="d">&mdash; sites de practice + parcours</span></li>
+      <li><a href="#a8">Les galeres classiques</a> <span class="d">&mdash; et comment t'en sortir</span></li>
+    </ol>
+    <div style="margin-top:8px;padding-top:6px;border-top:1px dotted #99b">
+      <b style="color:#cc0000">Special veille reseaux sociaux :</b>
+      <ol start="9" style="margin-top:4px">
+        <li><a href="#a9">Veille automatisee sur TikTok</a> <span class="d">&mdash; la vraie methode (API + outils)</span></li>
+        <li><a href="#a10">Veille automatisee sur Twitter / X</a> <span class="d">&mdash; la vraie methode (API + outils)</span></li>
+      </ol>
+    </div>
+  </div></div>
+
+  <!-- gabarit post -->
+  <!-- 1 -->
+  <a id="a1"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; Scrapeur en chef</div>
+      <div class="stat">Messages : 9120<br>Inscrit : 2004</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#1 - C'est quoi le web scraping ?</b></div>
+      <div class="post-content">
+        <p>Le <b>web scraping</b> (ou "grattage" de donnees), c'est le fait de <b>recuperer automatiquement des informations affichees sur des pages web</b>, au lieu de les copier-coller a la main. Un programme visite la page, lit le code, et en extrait ce qui t'interesse : titres, prix, liens, images, avis...</p>
+        <h3>A quoi ca sert ?</h3>
+        <ul>
+          <li>Comparer des prix sur plusieurs boutiques</li>
+          <li>Recuperer des annonces, des offres d'emploi, des articles</li>
+          <li>Constituer une base de donnees pour une analyse / un projet</li>
+          <li>Surveiller un changement (un stock, une dispo, une note)</li>
+        </ul>
+        <h3>Le vocabulaire a connaitre</h3>
+        <ul>
+          <li><b>HTML</b> : le code qui compose la page (le "texte brut" avec des balises).</li>
+          <li><b>Parser</b> : analyser ce code pour y retrouver des morceaux precis.</li>
+          <li><b>Selecteur</b> : l'adresse qui designe un element dans la page (voir #3).</li>
+          <li><b>Requete (request)</b> : quand ton programme demande la page au serveur.</li>
+          <li><b>Crawler</b> : un scraper qui suit les liens pour visiter plein de pages.</li>
+        </ul>
+        <div class="tip"><b>Scraping ≠ API.</b> Une <b>API</b>, c'est une porte officielle fournie par le site pour recuperer ses donnees proprement. Si elle existe, prefere-la toujours au scraping : c'est plus stable, plus rapide, et autorise.</div>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <a id="a2"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; Scrapeur en chef</div>
+      <div class="stat">Messages : 9120</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#2 - Comment marche une page web</b></div>
+      <div class="post-content">
+        <p>Pour gratter, il faut comprendre de quoi est faite une page. Une page web = du <b>HTML</b> : du texte organise avec des <b>balises</b> entre chevrons.</p>
+        <pre>&lt;div class="produit"&gt;
+  &lt;h2 class="titre"&gt;T-shirt rouge&lt;/h2&gt;
+  &lt;span class="prix"&gt;19,90 €&lt;/span&gt;
+  &lt;a href="/produit/42"&gt;Voir&lt;/a&gt;
+&lt;/div&gt;</pre>
+        <h3>Ce qu'il faut retenir</h3>
+        <ul>
+          <li>Une <b>balise</b> a un nom (<code>div</code>, <code>h2</code>, <code>a</code>, <code>img</code>, <code>span</code>...).</li>
+          <li>Elle peut avoir une <b>classe</b> (<code>class="prix"</code>) : une etiquette que le scraper adore, parce qu'elle vise pile le bon element.</li>
+          <li>Elle peut avoir un <b>id</b> (<code>id="header"</code>) : unique dans la page.</li>
+          <li>Elle a souvent des <b>attributs</b> : un lien a <code>href</code>, une image a <code>src</code>.</li>
+          <li>Les balises sont <b>imbriquees</b> : un bloc produit contient un titre, un prix, etc. C'est ce qui permet de dire "le prix DANS ce produit".</li>
+        </ul>
+        <p>Le <b>CSS</b>, lui, sert a la mise en forme (couleurs, tailles). Nous, ce qui nous interesse, ce sont surtout les <b>classes</b> et la <b>structure</b>, parce qu'on va s'en servir comme reperes.</p>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <a id="a3"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; Scrapeur en chef</div>
+      <div class="stat">Messages : 9120</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#3 - Trouver les bons selecteurs CSS</b></div>
+      <div class="post-content">
+        <p>Un <b>selecteur CSS</b>, c'est l'adresse qui designe un (ou plusieurs) element(s). C'est LE truc a maitriser. Les plus utiles :</p>
+        <ul>
+          <li><code>h2</code> &mdash; toutes les balises <code>h2</code></li>
+          <li><code>.prix</code> &mdash; tout ce qui a la classe <code>prix</code> (le <b>point</b> = classe)</li>
+          <li><code>#header</code> &mdash; l'element avec l'id <code>header</code> (le <b>diese</b> = id)</li>
+          <li><code>.produit .titre</code> &mdash; un <code>.titre</code> situe a l'interieur d'un <code>.produit</code></li>
+          <li><code>a</code> + attribut <code>href</code> &mdash; pour choper l'URL d'un lien</li>
+          <li><code>img</code> + attribut <code>src</code> &mdash; pour choper l'adresse d'une image</li>
+        </ul>
+        <h3>Comment les trouver sur un vrai site</h3>
+        <ol>
+          <li>Sur la page, <b>clic droit</b> sur l'element qui t'interesse &rarr; <b>Inspecter</b> (Inspect).</li>
+          <li>Le code s'ouvre et surligne ta balise. Repere son <b>nom</b> et sa <b>classe</b>.</li>
+          <li>Astuce : clic droit sur la balise dans l'inspecteur &rarr; <b>Copier &rarr; Copier le selecteur</b>.</li>
+        </ol>
+        <div class="tip"><b>Flemme ?</b> Dans l'outil, en <b>Mode avance</b>, clique sur <b>"Trombonne, remplis les cases pour moi"</b> : j'analyse la page et je te propose les selecteurs tout seul. Tu verifies, tu ajustes, tu lances.</div>
+        <div class="tip"><b>Regle d'or :</b> prefere une <b>classe parlante</b> (<code>.price</code>, <code>.product-title</code>) plutot qu'un truc fragile. Si le selecteur est trop precis (genre <code>div &gt; div &gt; div:nth-child(3)</code>), il cassera au moindre changement du site.</div>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <a id="a4"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; Scrapeur en chef</div>
+      <div class="stat">Messages : 9120</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#4 - Statique vs dynamique (le Mode JS)</b></div>
+      <div class="post-content">
+        <p>Il y a deux grandes familles de pages :</p>
+        <h3>Les pages statiques</h3>
+        <p>Le contenu est <b>deja dans le HTML</b> quand la page arrive. C'est le plus simple et le plus rapide a scraper. La plupart des blogs, des articles, des vieux sites.</p>
+        <h3>Les pages dynamiques (JavaScript)</h3>
+        <p>Le HTML arrive <b>presque vide</b>, puis du <b>JavaScript</b> charge le contenu apres coup (sites en React/Vue, scroll infini, boutons "charger plus"). Si tu scrapes ca en mode normal, tu recuperes... rien, ou du vide.</p>
+        <div class="tip"><b>La solution :</b> coche <b>"Mode JS (site dynamique)"</b> dans l'outil. Ca ouvre un vrai navigateur en coulisse (Playwright), qui laisse le JavaScript s'executer avant de lire la page. C'est plus lent, mais ca chope le contenu.</div>
+        <h3>Comment savoir laquelle c'est ?</h3>
+        <p>Simple : tu scrapes en mode normal. Si tu as <b>0 resultat</b> alors que tu vois bien le contenu dans ton navigateur &rarr; c'est surement du dynamique, active le Mode JS et relance.</p>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <a id="a5"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; le respect avant tout</div>
+      <div class="stat">Messages : 9120</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#5 - Scraper proprement et dans les regles</b></div>
+      <div class="post-content">
+        <p>Le scraping, c'est puissant, mais ca se fait avec la tete. Un bon scrapeur est <b>discret et respectueux</b>. Les regles de base :</p>
+        <h3>1. Le fichier robots.txt</h3>
+        <p>Beaucoup de sites ont un fichier <code>robots.txt</code> (ex : <code>exemple.com/robots.txt</code>) qui dit ce que les robots ont le droit de visiter. Respecte-le. L'outil le verifie pour toi quand l'option est cochee.</p>
+        <h3>2. Les conditions d'utilisation (CGU)</h3>
+        <p>Certains sites <b>interdisent</b> explicitement le scraping dans leurs CGU. Lis-les. Et si un site met un <b>anti-bot</b> (Cloudflare, captcha), c'est qu'il dit clairement non : on insiste pas.</p>
+        <h3>3. Les donnees personnelles (RGPD)</h3>
+        <div class="warn"><b>Attention :</b> recuperer des donnees personnelles (noms, emails, photos de gens...) est <b>encadre par la loi</b> (RGPD en Europe). Dans le doute, on ne collecte pas de donnees perso.</div>
+        <h3>4. La politesse technique</h3>
+        <ul>
+          <li>Ne bombarde pas le serveur : mets un <b>delai</b> entre les requetes.</li>
+          <li>Scrape aux heures creuses si tu fais du volume.</li>
+          <li>Ne te fais pas passer pour quelqu'un d'autre, ne surcharge pas le site.</li>
+        </ul>
+        <div class="tip"><b>La boussole :</b> si le site a une <b>API</b>, utilise-la. Si t'as un doute, <b>demande l'autorisation</b>. Scrape ce qui est public et que t'as le droit de prendre.</div>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <a id="a6"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; Scrapeur en chef</div>
+      <div class="stat">Messages : 9120</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#6 - Les outils du metier</b></div>
+      <div class="post-content">
+        <h3>Pour commencer : ce site</h3>
+        <p>Tu es au bon endroit. L'outil fait le scraping sans code : URL, cases a cocher ou selecteurs, export CSV/Excel/JSON. Parfait pour apprendre les concepts sans te prendre la tete.</p>
+        <h3>L'etape d'apres : Python</h3>
+        <p>Quand tu voudras aller plus loin, le duo de base c'est <b>requests</b> (telecharger la page) + <b>BeautifulSoup</b> (la parser) :</p>
+        <pre>import requests
+from bs4 import BeautifulSoup
+
+html = requests.get("https://quotes.toscrape.com").text
+soup = BeautifulSoup(html, "html.parser")
+
+for c in soup.select(".quote"):
+    texte = c.select_one(".text").get_text()
+    auteur = c.select_one(".author").get_text()
+    print(auteur, ":", texte)</pre>
+        <h3>Les autres outils</h3>
+        <ul>
+          <li><b>Scrapy</b> : un framework complet pour crawler plein de pages, gerer la pagination, exporter. Pour les gros projets.</li>
+          <li><b>Playwright / Selenium</b> : pilotent un vrai navigateur, indispensables pour le JavaScript (c'est ce que l'outil utilise en Mode JS).</li>
+          <li><b>lxml</b> : un parser tres rapide, souvent utilise avec BeautifulSoup.</li>
+        </ul>
+        <div class="tip"><b>Conseil :</b> commence simple (requests + BeautifulSoup sur un site statique). Passe aux navigateurs automatises seulement quand c'est vraiment necessaire.</div>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <a id="a7"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; Scrapeur en chef</div>
+      <div class="stat">Messages : 9120</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#7 - S'entrainer pour de vrai</b></div>
+      <div class="post-content">
+        <p>Le scraping, ca s'apprend en <b>pratiquant</b>. Et surtout : entraine-toi sur des sites <b>faits pour ca</b>, histoire de pas deranger de vrais sites.</p>
+        <h3>Les terrains d'entrainement (100% autorises)</h3>
+        <ul>
+          <li><b>quotes.toscrape.com</b> &mdash; des citations. Parfait pour debuter (statique + une version JS).</li>
+          <li><b>books.toscrape.com</b> &mdash; une fausse librairie avec prix, notes, pagination. Le classique.</li>
+          <li><b>scrapethissite.com</b> &mdash; des exercices progressifs (formulaires, pagination, AJAX).</li>
+          <li><b>webscraper.io/test-sites</b> &mdash; des sites de test e-commerce.</li>
+        </ul>
+        <h3>Un parcours d'apprentissage</h3>
+        <ol>
+          <li>Avec <b>cet outil</b> : scrape les citations de quotes.toscrape.com (mode simple).</li>
+          <li>Passe en <b>mode avance</b> : recupere citation + auteur separement (conteneur <code>.quote</code>).</li>
+          <li>Teste l'<b>auto-parser</b> sur books.toscrape.com et compare avec ce que t'aurais fait a la main.</li>
+          <li>Refais la meme chose en <b>Python</b> (requests + BeautifulSoup, voir #6).</li>
+          <li>Apprends la <b>pagination</b> : suivre les liens "page suivante" pour tout recuperer.</li>
+          <li>Attaque un vrai site <b>simple et autorise</b>, avec delai entre les requetes.</li>
+        </ol>
+        <div class="tip"><b>Mantra du debutant :</b> un petit scrape qui marche &gt; un gros projet qui plante. Avance par petites etapes.</div>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <a id="a8"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; Scrapeur en chef</div>
+      <div class="stat">Messages : 9120</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#8 - Les galeres classiques du debutant</b></div>
+      <div class="post-content">
+        <h3>"J'ai 0 resultat alors que je vois le contenu"</h3>
+        <p>&rarr; Le site est surement <b>dynamique</b> (JavaScript). Coche le <b>Mode JS</b> et relance. Verifie aussi ton selecteur (voir ci-dessous).</p>
+        <h3>"Je recupere un truc bizarre : 'verification de securite'..."</h3>
+        <p>&rarr; Le site est protege par un <b>anti-bot</b> (Cloudflare, captcha). Tu recois la page de blocage, pas le contenu. L'outil te previent maintenant. Ce site ne veut pas etre scrape : on passe a autre chose.</p>
+        <h3>"Mon selecteur ne ramene rien / pas la bonne chose"</h3>
+        <ul>
+          <li>Verifie que la classe existe bien (clic droit &rarr; Inspecter).</li>
+          <li>Attention aux fautes : <code>.titre</code> et <code>.Titre</code>, c'est pas pareil.</li>
+          <li>Un point pour une classe, un diese pour un id. Pas d'espace en trop.</li>
+        </ul>
+        <h3>"Les liens/images sont incomplets (commencent par /...)"</h3>
+        <p>&rarr; Ce sont des liens <b>relatifs</b>. Pas de panique : l'outil les transforme automatiquement en liens complets.</p>
+        <h3>"Ca marchait hier, plus aujourd'hui"</h3>
+        <p>&rarr; Le site a change son code. C'est la vie du scrapeur : il faut <b>re-verifier les selecteurs</b> de temps en temps. Plus ton selecteur est simple, moins ca casse.</p>
+        <div class="tip"><b>Bloque ?</b> Reviens sur l'outil et demande-moi dans la <b>Tchatche</b> : tape ta question (selecteur, mode JS, export...) et je t'aiguille. Ou lance le <b>tuto</b>.</div>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Catégorie veille réseaux -->
+  <div class="cat"><span class="arrow">&raquo;</span> [ VEILLE RESEAUX ] TikTok &amp; Twitter/X : le cas special</div>
+  <div class="panel"><div class="inner" style="font-size:12px;line-height:1.6">
+    <div class="warn"><b>A lire avant :</b> TikTok et Twitter/X ne sont <b>pas</b> des sites qu'on scrape avec cet outil. Login obligatoire, JavaScript lourd, anti-bot agressif, et surtout leurs <b>CGU interdisent le scraping automatise</b>. Un scraper maison se fait bloquer en continu et te met hors-la-loi. La bonne approche = leurs <b>API officielles</b> et des <b>outils de veille dedies</b>. C'est ce qu'on explique ici.</div>
+  </div></div>
+
+  <!-- 9 -->
+  <a id="a9"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; veille &amp; reseaux</div>
+      <div class="stat">Messages : 9120</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#9 - Veille automatisee sur TikTok</b></div>
+      <div class="post-content">
+        <h3>Pourquoi tu peux pas juste le scraper</h3>
+        <p>TikTok charge tout en JavaScript derriere un mur de connexion, avec une detection anti-bot muscle. Et leurs <b>conditions d'utilisation interdisent</b> la collecte automatisee non autorisee. Resultat : scraper maison = blocages permanents + risque juridique. On passe par l'officiel.</p>
+        <h3>La voie officielle : les API TikTok</h3>
+        <p>Sur <b>developers.tiktok.com</b> :</p>
+        <ul>
+          <li><b>Research API</b> &mdash; concue pour la veille/recherche : videos et commentaires <b>publics</b>, recherche par mots-cles, hashtags, dates. Reservee aux chercheurs / organisations <b>approuves</b> (demande a faire, dispo surtout UE &amp; US).</li>
+          <li><b>Display API</b> &mdash; afficher les contenus d'un compte qui t'a <b>donne son accord</b> (OAuth). Parfait pour suivre tes propres comptes.</li>
+          <li><b>Business / Marketing API</b> &mdash; stats des comptes pro et des campagnes pub.</li>
+          <li><b>Commercial Content API</b> &mdash; bibliotheque publique des publicites.</li>
+        </ul>
+        <h3>Les outils de veille tout faits (sans coder)</h3>
+        <p>Des plateformes payantes mais <b>conformes</b>, qui font la veille TikTok pour toi : <b>Exolyt</b>, <b>Pentos</b>, <b>Analisa.io</b>, <b>Brand24</b>, <b>Talkwalker</b>, <b>Hootsuite</b>. Tu entres tes mots-cles / comptes, elles te sortent les stats et les alertes.</p>
+        <h3>Automatiser proprement</h3>
+        <ul>
+          <li>Demande l'acces a l'API qui correspond a ton besoin, recupere tes <b>cles</b>.</li>
+          <li>Ecris un petit script (Python) qui interroge l'API et stocke les resultats.</li>
+          <li>Planifie-le avec un <b>cron</b> (ex : tous les matins) + une alerte email/Discord.</li>
+        </ul>
+        <div class="tip"><b>En resume :</b> la veille TikTok, c'est API officielle ou outil dedie. Jamais de scraping sauvage de l'app.</div>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <a id="a10"></a>
+  <div class="post">
+    <div class="post-side">
+      <svg viewBox="0 0 70 104" aria-hidden="true"><path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42" fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/><ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="30" cy="32" r="3.6" fill="#111"/><circle cx="47" cy="32" r="3.6" fill="#111"/></svg>
+      <div class="pseudo">Trombonne</div>
+      <div class="rank">Admin &middot; veille &amp; reseaux</div>
+      <div class="stat">Messages : 9120</div>
+    </div>
+    <div class="post-body">
+      <div class="post-head">Poste le 13 Oct 2026 &middot; <b>#10 - Veille automatisee sur Twitter / X</b></div>
+      <div class="post-content">
+        <h3>Pourquoi tu peux pas juste le scraper</h3>
+        <p>X a serieusement verrouille ces dernieres annees : affichage derriere connexion, anti-bot, CGU qui <b>interdisent le scraping</b>, et les miroirs type Nitter sont quasi tous morts. Le scraping d'X, aujourd'hui, c'est la galere assuree et c'est contre les regles.</p>
+        <h3>La voie officielle : l'API X v2</h3>
+        <p>Sur <b>developer.x.com</b>. Attention, l'acces est devenu <b>payant et etage</b> :</p>
+        <ul>
+          <li><b>Free</b> &mdash; tres limite (surtout pour publier, lecture quasi nulle).</li>
+          <li><b>Basic</b> &mdash; payant (~100$/mois), quotas de lecture modestes.</li>
+          <li><b>Pro / Enterprise</b> &mdash; pour du volume serieux (cher).</li>
+        </ul>
+        <p>Les briques utiles pour la veille : <b>recent search</b> (chercher les tweets recents sur des mots-cles) et <b>filtered stream</b> (flux temps reel avec des regles de filtrage).</p>
+        <h3>Les outils de veille tout faits (sans coder)</h3>
+        <p>Du <b>social listening</b> cle en main : <b>Brandwatch</b>, <b>Talkwalker</b>, <b>Meltwater</b>, <b>Mention</b>, <b>Brand24</b>, <b>Hootsuite</b>, <b>Sprout Social</b>, et <b>X Pro</b> (ex-TweetDeck). Tu definis tes mots-cles/comptes, tu recois tableaux de bord et alertes.</p>
+        <h3>Automatiser proprement</h3>
+        <ul>
+          <li>Cree un compte developpeur X, choisis le palier adapte, recupere ton <b>Bearer Token</b>.</li>
+          <li>Script Python qui appelle <b>recent search</b> (ou ouvre un <b>filtered stream</b>) et enregistre les tweets.</li>
+          <li><b>Cron</b> + alerte. Respecte les quotas (rate limits) pour pas te faire couper.</li>
+        </ul>
+        <div class="warn"><b>RGPD :</b> les tweets contiennent des <b>donnees personnelles</b>. Si tu stockes/analyses, respecte le cadre legal (surtout en Europe).</div>
+        <a class="totop" href="#top">&uarr; haut de page</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Le Guide du Scrapeur &middot; redige par Trombonne &middot; <a href="/">&laquo; Retour a l'outil</a> &middot; (c) 2004-2026 la mif
+  </div>
+
+</div>
+</body>
+</html>

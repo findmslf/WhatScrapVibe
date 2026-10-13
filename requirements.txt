@@ -1,0 +1,20 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
+openpyxl>=3.1
+# Enrichissement des numéros (pays/opérateur/type de ligne), hors-ligne.
+phonenumbers>=8.13
+# Requis pour la recherche TikTok OSINT + le mode dynamique (sites JavaScript).
+# Après install : ./.venv/bin/playwright install chromium
+playwright>=1.42
+# Analyse vidéo/photo TikTok (phase 2 : OCR texte à l'écran + transcription audio).
+# Le téléchargement du média passe par Playwright (session + cookies), pas yt-dlp.
+# Nécessite aussi les binaires système : sudo apt install ffmpeg tesseract-ocr tesseract-ocr-fra
+pillow>=10.0
+pytesseract>=0.3.10
+faster-whisper>=1.0
+# Optionnel : « mode précision » OCR (deep-learning, meilleur sur texte stylisé).
+# Gros (tire PyTorch) : ./.venv/bin/pip install easyocr
+# easyocr>=1.7

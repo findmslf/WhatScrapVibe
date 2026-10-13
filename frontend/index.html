@@ -1,0 +1,1303 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>:: Scrap-O-Rap :: Le Forum du Grattage ::</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 10px 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px; color: #000;
+    background: #51628a url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><rect width='16' height='16' fill='%2351628a'/><rect width='8' height='8' fill='%234b5c82'/><rect x='8' y='8' width='8' height='8' fill='%234b5c82'/></svg>") repeat;
+  }
+  a { color: #006699; text-decoration: none; }
+  a:hover { color: #DD6900; text-decoration: underline; }
+  a:visited { color: #5493B4; }
+
+  .page { width: 760px; max-width: 96%; margin: 0 auto; }
+
+  /* Ticker haut façon annonce admin */
+  .ticker {
+    background: #000; color: #00ff00; font-family: "Courier New", monospace; font-weight: bold;
+    border: 1px solid #00aa00; padding: 3px 0; overflow: hidden; white-space: nowrap; font-size: 11px; margin-bottom: 4px;
+  }
+  .ticker span { display: inline-block; padding-left: 100%; animation: slide 24s linear infinite; }
+  @keyframes slide { to { transform: translateX(-100%); } }
+
+  /* Bandeau logo */
+  .logo-bar {
+    background: #006699; border: 1px solid #000; padding: 10px 14px; text-align: center;
+  }
+  .wordart {
+    font-family: Impact, "Arial Black", Charcoal, sans-serif; font-weight: 900;
+    font-size: 42px; letter-spacing: 1px; line-height: 1; margin: 0;
+    color: #ffcc00; text-transform: uppercase; font-style: italic;
+    text-shadow: 2px 2px 0 #cc0000, 3px 3px 0 #000, -1px -1px 0 #fff;
+  }
+  .wordart .tm { font-size: 14px; vertical-align: super; }
+  .slogan { font-family: "Comic Sans MS", cursive; color: #fff; font-size: 12px; margin-top: 5px; }
+
+  /* Barre de liens type phpBB */
+  .toplinks {
+    background: #DEE3E7; border-left: 1px solid #000; border-right: 1px solid #000;
+    padding: 4px 8px; font-weight: bold; font-size: 11px; color: #006699;
+  }
+  .toplinks a { font-weight: bold; }
+  .nowtxt { background: #DEE3E7; border: 1px solid #000; border-top: none; padding: 4px 8px; color: #333; font-size: 10px; }
+
+  /* "Catégorie" forum */
+  .cat {
+    background: #006699 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='20'><rect width='4' height='20' fill='%23006699'/><rect width='4' height='10' fill='%23247fa8'/></svg>") repeat-x;
+    color: #fff; font-weight: bold; font-size: 11px; padding: 5px 9px;
+    border: 1px solid #000; border-bottom: none;
+  }
+  .cat .arrow { color: #ffcc00; }
+  .panel { background: #E5E5E5; border: 1px solid #000; border-top: 1px solid #98AAB1; padding: 10px; margin-bottom: 12px; }
+  .inner { background: #fff; border: 1px solid #98AAB1; padding: 10px; }
+
+  .lbl { display: block; font-weight: bold; color: #006699; margin: 0 0 3px; }
+  .lbl .mini { font-weight: normal; color: #666; }
+  .mini { color: #666; }
+  code { background: #FFFFCC; border: 1px solid #DDDD99; padding: 0 3px; font-family: "Courier New", monospace; color: #666600; }
+
+  input[type=text], input[type=url], select {
+    font-family: Verdana, Arial, sans-serif; font-size: 11px; padding: 3px 4px;
+    border: 1px solid #000; background: #fff; color: #000; width: 100%;
+  }
+  input:focus, select:focus { background: #FFFFEE; }
+
+  /* Options = cases */
+  .opts { margin-top: 10px; }
+  .opt { display: block; padding: 4px 6px; border: 1px solid #98AAB1; background: #EFEFEF; margin-bottom: 4px; cursor: pointer; }
+  .opt.on { background: #D8F0D0; border-color: #6a9a5a; }
+  .opt input { vertical-align: middle; margin-right: 6px; }
+  .opt b { color: #006699; }
+
+  /* Onglets */
+  .tabs { margin-bottom: 8px; border-bottom: 1px solid #98AAB1; }
+  .tab {
+    font-family: Verdana, Arial, sans-serif; font-weight: bold; font-size: 11px; cursor: pointer;
+    border: 1px solid #98AAB1; border-bottom: none; background: #DEE3E7; color: #006699;
+    padding: 5px 12px; margin-right: 3px; position: relative; top: 1px;
+  }
+  .tab.active { background: #fff; color: #cc0000; border-bottom: 1px solid #fff; }
+
+  /* Cases "quoi gratter" */
+  .checks { }
+  .check {
+    display: inline-block; cursor: pointer; user-select: none;
+    border: 1px solid #98AAB1; background: #EFEFEF; padding: 4px 9px; margin: 0 4px 4px 0;
+    font-weight: bold; color: #333;
+  }
+  .check input { display: none; }
+  .check.on { background: #FFCC66; border-color: #cc9900; color: #663300; }
+  .check .tick { color: #006600; }
+  .check:not(.on) .tick { color: #aaa; }
+
+  /* Champs avancés */
+  .field-row { display: flex; gap: 5px; margin-bottom: 5px; align-items: center; }
+  .field-row input { flex: 1; min-width: 0; }
+  .field-row .sel-w { flex: none; width: 140px; }
+  .field-row select { width: 100%; }
+  .icon-btn { border: 1px solid #000; background: #EFC0C0; color: #900; font-weight: bold; width: 28px; height: 26px; flex: none; cursor: pointer; }
+  .icon-btn:active { background: #d0a0a0; }
+
+  /* Boutons */
+  .go-wrap { text-align: center; margin: 4px 0 12px; }
+  button.primary {
+    font-family: Impact, "Arial Black", sans-serif; font-size: 20px; letter-spacing: 1px; font-style: italic;
+    color: #fff; text-shadow: 1px 1px 0 #000; cursor: pointer;
+    border: 2px solid #000; border-top-color: #7bd47f; border-left-color: #7bd47f;
+    background: #2a9d2f; padding: 8px 30px; text-transform: uppercase;
+  }
+  button.primary:hover { background: #33b838; }
+  button.primary:active { border-top-color: #000; border-left-color: #000; border-bottom-color: #7bd47f; border-right-color: #7bd47f; }
+  button.primary:disabled { background: #888; cursor: progress; }
+  button.ghost {
+    font-family: Verdana; font-weight: bold; font-size: 11px; cursor: pointer;
+    border: 1px solid #000; border-top-color: #fff; border-left-color: #fff;
+    background: #DEE3E7; color: #006699; padding: 4px 10px;
+  }
+  button.ghost:active { border-top-color: #000; border-left-color: #000; }
+  button.link { background: none; border: none; color: #006699; font: bold 11px Verdana; cursor: pointer; text-decoration: underline; padding: 3px 0; }
+  .autobtn {
+    font-family: Impact, "Arial Black", sans-serif; font-size: 15px; font-style: italic; letter-spacing: .5px;
+    color: #fff; text-shadow: 1px 1px 0 #000; cursor: pointer; text-transform: uppercase;
+    border: 2px solid #000; border-top-color: #ff9a9a; border-left-color: #ff9a9a;
+    background: #cc0000; padding: 7px 16px; margin-top: 5px;
+  }
+  .autobtn:hover { background: #e01414; }
+  .autobtn:active { border-top-color: #000; border-left-color: #000; border-bottom-color: #ff9a9a; border-right-color: #ff9a9a; }
+  .autobtn:disabled { background: #888; cursor: progress; }
+  .think-opt { display: block; margin-top: 6px; font-size: 11px; color: #333; cursor: pointer; }
+  #thinkBox { display: none; margin: 10px 0 0; background: #0d0d0d; color: #19e619; border: 1px solid #0a8f00; padding: 8px 10px; font-family: "Courier New", monospace; font-size: 11px; text-align: left; max-height: 220px; overflow-y: auto; }
+  #thinkBox .th-head { color: #ffcc00; border-bottom: 1px dashed #0a8f00; padding-bottom: 3px; margin-bottom: 4px; }
+  #thinkBox .ln { white-space: pre-wrap; line-height: 1.45; }
+  #thinkBox .cur::after { content: "_"; animation: curb .6s steps(1) infinite; }
+  @keyframes curb { 50% { opacity: 0; } }
+
+  /* Message */
+  .msg { display: none; padding: 6px 9px; font-weight: bold; margin-bottom: 8px; border: 1px solid; }
+  .msg.err { display: block; background: #FFE4E4; border-color: #cc0000; color: #900; }
+  .msg.info { display: block; background: #FFFFCC; border-color: #DDBB44; color: #665500; }
+
+  /* Résultats */
+  .results-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .count-wrap { font-weight: bold; color: #cc0000; }
+  .count-wrap #count { background: #cc0000; color: #ffcc00; padding: 0 6px; border: 1px solid #000; }
+  .export-btns { display: flex; gap: 5px; flex-wrap: wrap; }
+  .table-scroll { overflow: auto; max-height: 460px; border: 1px solid #98AAB1; }
+  table { border-collapse: collapse; width: 100%; font-size: 11px; }
+  thead th { position: sticky; top: 0; background: #006699; color: #fff; text-align: left; padding: 4px 8px; border: 1px solid #004466; white-space: nowrap; }
+  tbody td { padding: 3px 8px; border: 1px solid #ccc; vertical-align: top; max-width: 400px; overflow-wrap: anywhere; }
+  tbody tr:nth-child(odd) { background: #EFEFEF; }
+  tbody tr:nth-child(even) { background: #DEE3E7; }
+  tbody tr:hover { background: #FFFFCC; }
+  .empty { padding: 20px; text-align: center; color: #666; font-weight: bold; }
+
+  /* Footer */
+  .footer { background: #DEE3E7; border: 1px solid #000; padding: 6px 9px; font-size: 10px; color: #444; text-align: center; margin-top: 4px; }
+  .footer b { color: #cc0000; }
+  .online { color: #006600; font-weight: bold; }
+
+  /* blink de 2004 (le vrai tag est mort, on emule) */
+  .blink { animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hot { color: #cc0000; font-weight: bold; }
+  .new-badge { background: #ffcc00; color: #cc0000; border: 1px solid #cc0000; font-weight: bold; padding: 0 3px; font-size: 9px; }
+
+  /* Bandeau SITE EN CONSTRUCTION facon chantier */
+  .construction {
+    margin-top: 10px; border: 2px solid #000; text-align: center; padding: 8px;
+    color: #000; font-family: "Comic Sans MS", cursive; font-weight: bold; font-size: 13px;
+    background: repeating-linear-gradient(45deg, #ffcc00 0 18px, #000 18px 36px);
+    animation: hazard 1s linear infinite;
+  }
+  @keyframes hazard { to { background-position: 51px 0; } }
+  .construction span {
+    display: inline-block; background: #ffcc00; padding: 4px 10px; border: 1px solid #000;
+  }
+  .digger { display: inline-block; animation: dig .4s steps(2) infinite; }
+  @keyframes dig { to { transform: rotate(-18deg); } }
+
+  /* Trombonne, l'assistant a l'ancienne */
+  #clippy {
+    position: fixed; z-index: 9999; width: 66px; right: 24px; bottom: 24px;
+    cursor: pointer; transition: left 1.7s cubic-bezier(.45,.05,.3,1), top 1.7s cubic-bezier(.45,.05,.3,1);
+    filter: drop-shadow(2px 3px 2px rgba(0,0,0,.45));
+  }
+  #clippy svg { display: block; width: 100%; height: auto; }
+  #clippy.bob svg { animation: bob 1.3s ease-in-out infinite; transform-origin: 50% 90%; }
+  @keyframes bob { 50% { transform: translateY(-6px) rotate(-4deg); } }
+  /* Trombonna, la femme de Trombonne (easter egg : 5 clics sur Trombonne) */
+  #trombonna { position: fixed; z-index: 9999; width: 58px; display: none; cursor: default; filter: drop-shadow(2px 3px 2px rgba(180,0,90,.45)); }
+  #trombonna svg { display: block; width: 100%; height: auto; }
+  #trombonna.bob svg { animation: bob 1.3s ease-in-out infinite; transform-origin: 50% 90%; }
+  .clippy-bubble {
+    position: absolute; bottom: 108%; right: 0; width: 230px;
+    background: #FFFFCC; border: 2px solid #000; padding: 8px 10px;
+    font-family: "Comic Sans MS", cursive; font-size: 12px; color: #000; line-height: 1.4;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.4);
+  }
+  .clippy-bubble.below { bottom: auto; top: 108%; }
+  .clippy-bubble::after {
+    content: ""; position: absolute; right: 22px; bottom: -9px;
+    border: 8px solid transparent; border-top-color: #000;
+  }
+  .clippy-bubble.below::after { bottom: auto; top: -9px; border-top-color: transparent; border-bottom-color: #000; }
+  .clippy-bubble .btns { margin-top: 7px; text-align: right; display: flex; gap: 5px; justify-content: flex-end; }
+  .clippy-bubble button {
+    font-family: Verdana; font-size: 11px; font-weight: bold; cursor: pointer;
+    border: 1px solid #000; border-top-color: #fff; border-left-color: #fff;
+    background: #DEE3E7; color: #006699; padding: 3px 8px;
+  }
+  .clippy-bubble button.go { background: #FFCC66; color: #663300; }
+  .tuto-highlight { outline: 3px dashed #cc0000 !important; outline-offset: 2px; animation: hl .5s steps(2) infinite; }
+  @keyframes hl { 50% { outline-color: #ffcc00; } }
+
+  /* La Tchatche (shoutbox avec Trombonne) */
+  #chatbox { position: fixed; left: 16px; bottom: 16px; width: 300px; max-width: 92vw; z-index: 9998; border: 2px solid #000; background: #E5E5E5; box-shadow: 4px 4px 0 rgba(0,0,0,.45); }
+  #chatbox .cb-title { background: #006699; color: #fff; font-weight: bold; font-size: 11px; padding: 5px 9px; display: flex; justify-content: space-between; align-items: center; }
+  #chatbox .cb-title .x { cursor: pointer; background: #DEE3E7; color: #006699; border: 1px solid #000; border-top-color: #fff; border-left-color: #fff; width: 18px; height: 16px; line-height: 14px; text-align: center; font-weight: bold; }
+  #chatlog { height: 190px; overflow-y: auto; background: #fff; border: 1px solid #98AAB1; margin: 7px; padding: 6px; font-size: 11px; line-height: 1.5; }
+  #chatlog .me b { color: #006699; }
+  #chatlog .trb b { color: #cc0000; }
+  #chatlog .trb { background: #FFFFCC; display: block; padding: 2px 4px; margin: 2px 0; }
+  .cb-input { display: flex; gap: 4px; margin: 0 7px 7px; }
+  .cb-input input { flex: 1; min-width: 0; }
+  .cb-input button { font-family: Verdana; font-weight: bold; font-size: 11px; cursor: pointer; border: 1px solid #000; border-top-color: #fff; border-left-color: #fff; background: #FFCC66; color: #663300; padding: 0 10px; }
+  .cb-voice { margin: 0 7px 8px; font-size: 10px; color: #444; }
+  .cb-voice select { font-size: 10px; max-width: 170px; padding: 2px; border: 1px solid #000; background: #fff; }
+
+  .hidden { display: none !important; }
+  @media (max-width: 560px) {
+    .page { width: 100%; }
+    .wordart { font-size: 28px; }
+    .field-row { flex-wrap: wrap; } .field-row .sel-w { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="ticker"><span>&gt;&gt;&gt; BIENVENUE SUR LE FORUM DU SCRAP *** PAS DE LEECH SVP *** RESPECTE LE ROBOTS.TXT OU TU TE FAIS BAN *** shoutout a tous les vrais :D *** nouveau membre ? presente-toi dans ta zone &gt;_&lt; *** &lt;&lt;&lt;</span></div>
+
+  <div class="logo-bar">
+    <h1 class="wordart">Scrap-O-Rap<span class="tm">(TM)</span></h1>
+    <div class="slogan">* le forum n.1 du grattage de donnees depuis 2004 dans ton tiekar *</div>
+    <div style="margin-top:4px"><span class="blink new-badge">NOUVEAU</span> <span class="blink hot" style="color:#ffcc00">&gt;&gt; v2 avec le son et la zik &lt;&lt;</span></div>
+  </div>
+
+  <div class="toplinks">
+    <a href="/guide" style="color:#cc0000">Le Guide</a> &nbsp;&middot;&nbsp; <a href="#">Rechercher</a> &nbsp;&middot;&nbsp; <a href="#">Membres (847)</a> &nbsp;&middot;&nbsp; <a href="#">Reglement du 9.1</a> &nbsp;&middot;&nbsp; <a href="#">Profil</a> &nbsp;&middot;&nbsp; <a href="#" id="sndBtn">SON [ON]</a> &nbsp;&middot;&nbsp; <a href="#" id="muzBtn">RADIO 9.1 [OFF]</a> &nbsp;&middot;&nbsp; <a href="#" id="chatBtn">Tchatche</a> &nbsp;&middot;&nbsp; <a href="#" id="voixBtn">VOIX [ON]</a> &nbsp;&middot;&nbsp; <a href="#">Deconnexion</a>
+  </div>
+  <div class="nowtxt">Nous sommes le 13 Oct 2026, 14:52 &nbsp;|&nbsp; Derniere visite le 12 Oct 2026 &nbsp;|&nbsp; Vous avez <b>0</b> nouveau(x) message(s)</div>
+
+  <div style="height:8px"></div>
+
+  <div id="msg" class="msg"></div>
+
+  <!-- 1 -->
+  <div class="cat"><span class="arrow">&raquo;</span> [ #1 ] Balance l'URL ma gueule</div>
+  <div class="panel"><div class="inner">
+    <label class="lbl" for="url">Lien de la page <span class="mini">(colle direct, pas de chichi)</span></label>
+    <input type="url" id="url" placeholder="https://exemple.com/produits" autocomplete="off" spellcheck="false" />
+    <div class="opts">
+      <label class="opt" id="opt-dynamic"><input type="checkbox" id="dynamic"><b>Mode JS (site dynamique)</b> <span class="mini">&mdash; pour les sites un peu bg qui chargent au JavaScript. Plus lent frero.</span></label>
+      <label class="opt on" id="opt-robots"><input type="checkbox" id="robots" checked><b>Respecter robots.txt</b> <span class="mini">&mdash; sinon tu te fais ban (recommande)</span></label>
+      <label class="opt" id="opt-paginate"><input type="checkbox" id="paginate"><b>Pagination auto</b> <span class="mini">&mdash; suit les liens "page suivante" pour tout choper</span></label>
+    </div>
+    <div id="pageOpts" class="hidden" style="margin-top:8px;padding:9px;border:1px solid #98AAB1;background:#fff">
+      <label class="lbl" for="maxPages" style="display:inline">Pages max : </label>
+      <input type="number" id="maxPages" value="5" min="1" max="50" style="width:70px;display:inline">
+      <span class="mini">&nbsp;(1 a 50, pause d'1s entre chaque &mdash; on reste poli)</span>
+      <label class="lbl" for="nextSelector" style="margin-top:8px">Lien "page suivante" <span class="mini">&mdash; optionnel, laisse vide pour l'auto-detection</span></label>
+      <input type="text" id="nextSelector" placeholder="auto  (ex: a.next, li.next a, a[rel=next])" spellcheck="false">
+    </div>
+  </div></div>
+
+  <!-- 2 -->
+  <div class="cat"><span class="arrow">&raquo;</span> [ #2 ] Qu'est-ce tu veux gratter ?</div>
+  <div class="panel"><div class="inner">
+    <div class="tabs">
+      <button class="tab active" data-mode="simple">Mode simple</button>
+      <button class="tab" data-mode="advanced">Mode avance (CSS)</button>
+    </div>
+    <div id="pane-simple">
+      <label class="lbl">Clique sur ce que tu veux choper <span class="mini">(1 colonne par bouton allume)</span></label>
+      <div class="checks" id="simpleChecks">
+        <label class="check on"><input type="checkbox" value="titres" checked><span class="tick">[x]</span> Titres</label>
+        <label class="check"><input type="checkbox" value="liens"><span class="tick">[x]</span> Liens</label>
+        <label class="check"><input type="checkbox" value="textes_liens"><span class="tick">[x]</span> Texte des liens</label>
+        <label class="check"><input type="checkbox" value="images"><span class="tick">[x]</span> Images</label>
+        <label class="check"><input type="checkbox" value="paragraphes"><span class="tick">[x]</span> Paragraphes</label>
+        <label class="check"><input type="checkbox" value="listes"><span class="tick">[x]</span> Listes</label>
+      </div>
+      <div style="margin-top:8px"><button class="link" id="tutoBtnSimple" style="color:#cc0000">[?] Besoin d'aide ? demande a Trombonne</button></div>
+    </div>
+    <div id="pane-advanced" class="hidden">
+      <div style="background:#FFFFCC;border:2px solid #cc0000;padding:8px;margin-bottom:12px;text-align:center">
+        <b style="color:#cc0000">Flemme de chercher les selecteurs ?</b><br>
+        <button class="autobtn" id="autoBtn">Trombonne, remplis les cases pour moi !</button>
+        <div class="mini" style="margin-top:4px">Colle l'URL en haut, puis clique : il analyse la page et remplit tout.</div>
+        <label class="think-opt"><input type="checkbox" id="thinkChk"> Montre-moi comment Trombonne reflechit (etape par etape)</label>
+        <div id="thinkBox"></div>
+      </div>
+      <label class="lbl" for="container">Bloc qui se repete <span class="mini">&mdash; optionnel (ex. <code>.produit</code>). 1 bloc = 1 ligne.</span></label>
+      <input type="text" id="container" placeholder=".card   article   li.item" spellcheck="false" />
+      <label class="lbl" style="margin-top:10px">Les champs a gratter <span class="mini">&mdash; nom de colonne / selecteur CSS / contenu</span></label>
+      <div id="fieldsList"></div>
+      <button class="link" id="addField">[+] rajouter un champ</button>
+      &nbsp;&nbsp; <button class="link" id="tutoBtn" style="color:#cc0000">[?] Besoin d'aide ? demande a Trombonne</button>
+    </div>
+  </div></div>
+
+  <!-- 3. Nettoyage -->
+  <div class="cat"><span class="arrow">&raquo;</span> [ #3 ] Nettoyage des donnees <span style="font-weight:normal;color:#cce">(optionnel, deja regle au mieux)</span></div>
+  <div class="panel"><div class="inner">
+    <div class="opts">
+      <label class="opt on" id="opt-cleanText"><input type="checkbox" id="cleanText" checked><b>Nettoyer le texte</b> <span class="mini">&mdash; enleve les espaces en trop</span></label>
+      <label class="opt on" id="opt-dropEmpty"><input type="checkbox" id="dropEmpty" checked><b>Enlever les lignes vides</b></label>
+      <label class="opt on" id="opt-dedupe"><input type="checkbox" id="dedupe" checked><b>Enlever les doublons</b></label>
+      <label class="opt" id="opt-priceNum"><input type="checkbox" id="priceNum"><b>Prix en nombre</b> <span class="mini">&mdash; "£51.77" devient "51.77"</span></label>
+      <label class="opt" id="opt-enrichPhones"><input type="checkbox" id="enrichPhones"><b>Detecter + enrichir les numeros</b> <span class="mini">&mdash; repere les tel dans les resultats et ajoute pays/operateur/type</span></label>
+    </div>
+  </div></div>
+
+  <div class="go-wrap"><button class="primary" id="run">&raquo; LANCER LE SCRAP &laquo;</button></div>
+
+  <!-- TikTok OSINT -->
+  <div class="cat"><span class="arrow">&raquo;</span> [ #TIKTOK ] Recherche OSINT par mot-cle <span class="blink new-badge">NEW</span></div>
+  <div class="panel"><div class="inner">
+    <div style="background:#FFFFCC;border:1px solid #DDBB44;padding:7px 9px;margin-bottom:10px;color:#665500">
+      <b>Donnees publiques uniquement.</b> On cherche un mot-cle sur TikTok et on recupere ce qui est
+      <b>affiche publiquement</b> : pseudo, nom, bio, description des videos. Les numeros / contacts
+      extraits sont ceux que les gens <b>mettent eux-memes</b> dans leur bio ou leurs videos.
+      Usage reserve a une investigation autorisee &mdash; le cadre legal du traitement reste de ta responsabilite.
+    </div>
+    <div style="border:1px solid #98AAB1;background:#fff;padding:8px;margin-bottom:10px">
+      <button class="link" id="tkCookieToggle" style="color:#006699">[+] Mes cookies TikTok <span class="mini" id="tkCookieState">(recommande : moins de blocages)</span></button>
+      <div id="tkCookieBox" class="hidden" style="margin-top:7px">
+        <div class="mini" style="margin-bottom:5px">
+          Connecte-toi a TikTok dans ton navigateur, installe une extension type
+          <b>Cookie-Editor</b>, ouvre-la sur tiktok.com, clique <b>Export</b> (format JSON),
+          et colle ici. Ca injecte ta session connectee &mdash; tu te fais beaucoup moins bloquer.
+        </div>
+        <textarea id="tkCookies" placeholder='colle ici le JSON des cookies  [{"name":"sessionid","value":"...","domain":".tiktok.com"}, ...]'
+          style="width:100%;height:80px;font-family:'Courier New',monospace;font-size:10px;border:1px solid #000;padding:4px" spellcheck="false"></textarea>
+        <div style="margin-top:5px"><button class="ghost" id="tkSaveCookies">Enregistrer mes cookies</button></div>
+      </div>
+    </div>
+
+    <label class="lbl" for="tkKeyword">Mot-cle a rechercher</label>
+    <input type="text" id="tkKeyword" placeholder="ex: un produit, un code, un secteur..." autocomplete="off" spellcheck="false" />
+    <div class="field-row" style="margin-top:8px">
+      <label class="lbl" for="tkMax" style="display:inline;margin:0">Nombre de comptes max :&nbsp;</label>
+      <input type="number" id="tkMax" value="40" min="5" max="200" style="width:80px;display:inline">
+    </div>
+    <div class="opts">
+      <label class="opt" id="opt-tkContact"><input type="checkbox" id="tkOnlyContact"><b>Seulement les comptes avec un contact</b> <span class="mini">&mdash; cache ceux sans numero/snap/telegram...</span></label>
+      <label class="opt" id="opt-tkProfiles"><input type="checkbox" id="tkProfiles"><b>Aller chercher la bio de chaque compte</b> <span class="mini">&mdash; plus complet mais plus lent (visite chaque profil)</span></label>
+      <label class="opt on" id="opt-tkHeadless"><input type="checkbox" id="tkHeadless" checked><b>Navigateur invisible</b> <span class="mini">&mdash; decoche si TikTok bloque, pour resoudre un captcha a la main</span></label>
+    </div>
+    <div class="go-wrap" style="margin-top:12px"><button class="primary" id="runTk" style="background:#cc0066;border-top-color:#ff7bc0;border-left-color:#ff7bc0">&raquo; LANCER LA RECHERCHE TIKTOK &laquo;</button></div>
+
+    <div style="border-top:1px dashed #98AAB1;margin-top:6px;padding-top:10px">
+      <button class="link" id="tkVideoToggle" style="color:#006699">[+] Analyser une video en profondeur <span class="mini">(OCR texte a l'ecran + audio) &mdash; pour les numeros pas dans le texte</span></button>
+      <div id="tkVideoBox" class="hidden" style="margin-top:7px">
+        <div class="mini" style="margin-bottom:5px">Colle le lien d'un post TikTok (<b>video OU photo</b>). On lit le texte incruste (OCR) et/ou on transcrit l'audio, puis on cherche les contacts dedans. <b>Lent</b> (dizaines de secondes). <b style="color:#cc0000">Necessite tes cookies TikTok</b> (ci-dessus) : les posts individuels sont proteges par captcha.</div>
+        <input type="url" id="tkVideoUrl" placeholder="https://www.tiktok.com/@compte/video/123...  (ou /photo/...)" spellcheck="false" autocomplete="off">
+        <div class="opts" style="margin-top:6px">
+          <label class="opt on" id="opt-tkOcr"><input type="checkbox" id="tkOcr" checked><b>OCR</b> <span class="mini">&mdash; lire le texte affiche a l'ecran</span></label>
+          <label class="opt" id="opt-tkPrecision"><input type="checkbox" id="tkPrecision"><b>Mode precision (EasyOCR)</b> <span class="mini">&mdash; bien meilleur sur texte stylise, mais plus lent</span></label>
+          <label class="opt" id="opt-tkAudio"><input type="checkbox" id="tkAudio"><b>Transcription audio</b> <span class="mini">&mdash; ce qui est dit a l'oral (plus lent, telecharge un modele)</span></label>
+          <label class="opt" id="opt-tkVidHeadless"><input type="checkbox" id="tkVidHeadless"><b>Navigateur invisible</b> <span class="mini">&mdash; laisse DECOCHE : une fenetre s'ouvre pour resoudre le captcha du post</span></label>
+        </div>
+        <div style="margin-top:6px"><button class="ghost" id="tkRunVideo">Analyser cette video</button></div>
+        <div id="tkVideoResult" style="margin-top:8px"></div>
+      </div>
+    </div>
+  </div></div>
+
+  <!-- OSINT : recherche d'un numero dans l'historique -->
+  <div class="cat"><span class="arrow">&raquo;</span> [ #OSINT ] Rechercher un numero dans l'historique</div>
+  <div class="panel"><div class="inner">
+    <div class="mini" style="margin-bottom:6px">Tape un numero : l'outil retrouve <b>tous</b> les comptes/posts ou il est apparu dans tes recherches precedentes (TikTok + scraping). Les formats <code>06...</code> et <code>+33 6...</code> sont reconnus comme le meme numero. <span id="osintStats"></span></div>
+    <div class="field-row">
+      <input type="text" id="osintNum" placeholder="06 12 34 56 78   ou   +33612345678" spellcheck="false">
+      <button class="ghost" id="osintBtn" style="flex:none">Chercher</button>
+    </div>
+    <div id="osintResult" style="margin-top:8px"></div>
+    <div style="margin-top:10px;border-top:1px dashed #98AAB1;padding-top:8px">
+      <button class="ghost" id="linksBtn">Comptes lies (reseau)</button>
+      <span class="mini">&mdash; regroupe les comptes qui partagent un identifiant (tel, mail, snap, telegram, insta, @mention, lien)</span>
+      <div id="linksResult" style="margin-top:8px"></div>
+    </div>
+  </div></div>
+
+  <!-- Résultats -->
+  <div id="results" class="hidden">
+    <div class="cat"><span class="arrow">&raquo;</span> [ LE BUTIN ] ce qu'on a chope</div>
+    <div class="panel"><div class="inner">
+      <div class="results-head">
+        <div class="count-wrap">&raquo; <span id="count">0</span> resultats dans la sacoche<span id="pagesInfo"></span></div>
+        <div class="export-btns">
+          <button class="ghost" data-fmt="csv">CSV</button>
+          <button class="ghost" data-fmt="xlsx">Excel</button>
+          <button class="ghost" data-fmt="json">JSON</button>
+          <button class="ghost" id="ficheBtn" style="background:#FFCC66;color:#663300">Fiches (PDF)</button>
+        </div>
+      </div>
+      <div class="table-scroll"><table id="table"></table></div>
+    </div></div>
+  </div>
+
+  <div class="construction">
+    <span><span class="digger">(\_/)</span> SITE EN CONSTRUCTION &mdash; REVIENS BIENTOT POUR PLUS DE SALE <span class="digger">(\_/)</span></span>
+  </div>
+
+  <div class="footer">
+    <span class="online">&bull; 847 blazes en ligne</span> &nbsp;|&nbsp; Record de connectes : <b>9120</b> le 13 Oct 2026 &nbsp;|&nbsp; Visiteurs : <b>001 337 420</b><br>
+    Propulse par phpB... euh non, par Python &amp; du sale &nbsp;|&nbsp; <i>Best viewed in 800x600</i> &nbsp;|&nbsp; Toutes les heures sont au format UTC+1 &nbsp;|&nbsp; (c) 2004-2026 la mif
+  </div>
+
+</div>
+
+<!-- La Tchatche -->
+<div id="chatbox" class="hidden">
+  <div class="cb-title"><span>:: La Tchatche avec Trombonne ::</span><span class="x" id="chatClose" title="fermer">X</span></div>
+  <div id="chatlog"></div>
+  <div class="cb-input">
+    <input type="text" id="chatInput" placeholder="ecris ici et tape Entree..." autocomplete="off" maxlength="200">
+    <button id="chatSend">OK</button>
+  </div>
+  <div class="cb-voice">Voix de Trombonne : <select id="voiceSel"><option>(chargement...)</option></select></div>
+</div>
+
+<!-- Trombonne l'assistant -->
+<div id="clippy" class="bob" title="Clique-moi pour le tuto !">
+  <div class="clippy-bubble hidden" id="clippyBubble">
+    <div id="clippyText"></div>
+    <div class="btns">
+      <button id="clippySkip">Passer</button>
+      <button id="clippyNext" class="go">Suivant &raquo;</button>
+    </div>
+  </div>
+  <svg viewBox="0 0 70 104" aria-hidden="true">
+    <path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42"
+          fill="none" stroke="#b9c2cc" stroke-width="8" stroke-linecap="round"/>
+    <path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42"
+          fill="none" stroke="#e8edf2" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/>
+    <ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/>
+    <circle class="pupil" cx="30" cy="32" r="3.6" fill="#111"/>
+    <circle class="pupil" cx="47" cy="32" r="3.6" fill="#111"/>
+    <path d="M21 17 l13 4" stroke="#333" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M56 17 l-13 4" stroke="#333" stroke-width="2.6" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+let currentMode = "simple";
+let lastRows = [];
+
+/* ---------- Sons 8-bit (Web Audio, zero fichier) ---------- */
+let soundOn = true;
+try { soundOn = localStorage.getItem("snd") !== "0"; } catch(e){}
+let actx = null;
+function ac(){ if(!actx){ try { actx = new (window.AudioContext||window.webkitAudioContext)(); } catch(e){} } return actx; }
+function blip(freq=440, dur=0.06, type="square", vol=0.14){
+  if(!soundOn) return; const c = ac(); if(!c) return;
+  if(c.state === "suspended") c.resume();
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.value = freq;
+  g.gain.setValueAtTime(vol, c.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + dur);
+  o.connect(g); g.connect(c.destination);
+  o.start(); o.stop(c.currentTime + dur);
+}
+const sfxClick  = () => blip(660, 0.045, "square");
+const sfxTab    = () => blip(520, 0.05, "triangle");
+const sfxToggle = (on) => blip(on ? 880 : 300, 0.06, "square");
+const sfxGo     = () => { blip(392,0.08,"sawtooth"); setTimeout(()=>blip(523,0.08,"sawtooth"),70); setTimeout(()=>blip(659,0.12,"sawtooth"),150); };
+const sfxWin    = () => [523,659,784,1047].forEach((f,i)=>setTimeout(()=>blip(f,0.1,"square"),i*80));
+const sfxErr    = () => { blip(200,0.18,"sawtooth",0.2); setTimeout(()=>blip(135,0.24,"sawtooth",0.2),120); };
+
+$("#sndBtn").onclick = (e) => {
+  e.preventDefault();
+  soundOn = !soundOn;
+  try { localStorage.setItem("snd", soundOn ? "1" : "0"); } catch(err){}
+  $("#sndBtn").textContent = "SON [" + (soundOn ? "ON" : "OFF") + "]";
+  if (soundOn) sfxToggle(true);
+};
+$("#sndBtn").textContent = "SON [" + (soundOn ? "ON" : "OFF") + "]";
+
+/* ---------- RADIO 9.1 : beat boom-bap rap (Web Audio, en boucle) ---------- */
+let musicOn = false, muzTimer = null, mstep = 0;
+
+function tone(freq, dur, type, vol) {
+  if (!freq) return; const c = ac(); if(!c) return;
+  if (c.state === "suspended") c.resume();
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.value = freq;
+  g.gain.setValueAtTime(vol, c.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + dur);
+  o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + dur);
+}
+
+/* batterie synthetisee */
+let noiseBuf = null;
+function noise() {
+  const c = ac(); if (!c) return null;
+  if (!noiseBuf) {
+    const n = Math.floor(c.sampleRate * 0.5);
+    noiseBuf = c.createBuffer(1, n, c.sampleRate);
+    const d = noiseBuf.getChannelData(0);
+    for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+  }
+  return noiseBuf;
+}
+function kick() {
+  const c = ac(); if (!c) return; const t = c.currentTime;
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = "sine"; o.frequency.setValueAtTime(165, t); o.frequency.exponentialRampToValueAtTime(48, t + 0.13);
+  g.gain.setValueAtTime(0.55, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + 0.24);
+}
+function snare() {
+  const c = ac(); if (!c) return; const t = c.currentTime;
+  const src = c.createBufferSource(); src.buffer = noise();
+  const hp = c.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 1400;
+  const g = c.createGain(); g.gain.setValueAtTime(0.4, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.17);
+  src.connect(hp); hp.connect(g); g.connect(c.destination); src.start(t); src.stop(t + 0.2);
+}
+function hat(open) {
+  const c = ac(); if (!c) return; const t = c.currentTime;
+  const src = c.createBufferSource(); src.buffer = noise();
+  const hp = c.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 7500;
+  const d = open ? 0.11 : 0.03;
+  const g = c.createGain(); g.gain.setValueAtTime(0.13, t); g.gain.exponentialRampToValueAtTime(0.001, t + d);
+  src.connect(hp); hp.connect(g); g.connect(c.destination); src.start(t); src.stop(t + d + 0.02);
+}
+
+/* patterns sur 16 pas (La mineur, vibe boom-bap) */
+const P_KICK = [1,0,0,0, 0,0,1,0, 0,0,0,0, 1,0,0,0];
+const P_SNR  = [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,1];
+const P_BASS = [55,0,0,0, 0,0,65.41,0, 0,0,49,0, 0,0,43.65,0];
+const P_LEAD = [440,0,0,523, 0,0,392,0, 0,330,0,0, 392,0,0,0];
+function startMusic() {
+  if (muzTimer) return;
+  const c = ac(); if (c && c.state === "suspended") c.resume();
+  mstep = 0;
+  muzTimer = setInterval(() => {
+    const i = mstep % 16;
+    if (P_KICK[i]) kick();
+    if (P_SNR[i]) snare();
+    if (i % 2 === 0) hat(i === 14);
+    if (P_BASS[i]) tone(P_BASS[i], 0.2, "triangle", 0.22);
+    if (P_LEAD[i]) tone(P_LEAD[i], 0.14, "square", 0.05);
+    mstep++;
+  }, 150); // ~100 BPM
+}
+function stopMusic() { if (muzTimer) { clearInterval(muzTimer); muzTimer = null; } }
+$("#muzBtn").onclick = (e) => {
+  e.preventDefault();
+  musicOn = !musicOn;
+  $("#muzBtn").textContent = "RADIO 9.1 [" + (musicOn ? "ON" : "OFF") + "]";
+  if (musicOn) { startMusic(); } else { stopMusic(); }
+};
+
+/* clic generique sur tous les boutons/liens */
+document.addEventListener("click", (e) => {
+  if (e.target.closest("#sndBtn, #muzBtn")) return;
+  if (e.target.closest(".tab")) { sfxTab(); return; }
+  if (e.target.closest("button.ghost, button.link, .icon-btn, .toplinks a, .cat")) sfxClick();
+}, true);
+
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.onclick = () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    currentMode = tab.dataset.mode;
+    $("#pane-simple").classList.toggle("hidden", currentMode !== "simple");
+    $("#pane-advanced").classList.toggle("hidden", currentMode !== "advanced");
+  };
+});
+
+function syncOpt(id, optId) { $(optId).classList.toggle("on", $(id).checked); }
+$("#dynamic").addEventListener("change", () => { syncOpt("#dynamic", "#opt-dynamic"); sfxToggle($("#dynamic").checked); });
+$("#robots").addEventListener("change", () => { syncOpt("#robots", "#opt-robots"); sfxToggle($("#robots").checked); });
+$("#paginate").addEventListener("change", () => {
+  syncOpt("#paginate", "#opt-paginate"); sfxToggle($("#paginate").checked);
+  $("#pageOpts").classList.toggle("hidden", !$("#paginate").checked);
+});
+[["cleanText","opt-cleanText"],["dropEmpty","opt-dropEmpty"],["dedupe","opt-dedupe"],["priceNum","opt-priceNum"],["enrichPhones","opt-enrichPhones"]].forEach(([id,opt]) => {
+  $("#"+id).addEventListener("change", () => { syncOpt("#"+id, "#"+opt); sfxToggle($("#"+id).checked); });
+});
+function refreshChecks() { document.querySelectorAll("#simpleChecks .check").forEach(c => c.classList.toggle("on", c.querySelector("input").checked)); }
+$("#simpleChecks").addEventListener("change", (e) => { refreshChecks(); if (e.target.matches("input")) sfxToggle(e.target.checked); });
+refreshChecks();
+
+function addFieldRow(name="", selector="", attr="text") {
+  const div = document.createElement("div");
+  div.className = "field-row";
+  div.innerHTML = `
+    <input type="text" placeholder="nom de colonne" value="${name}">
+    <input type="text" placeholder="selecteur CSS (.title)" value="${selector}" spellcheck="false">
+    <span class="sel-w"><select>
+      <option value="text">Texte</option>
+      <option value="href">Lien (href)</option>
+      <option value="src">Image (src)</option>
+      <option value="html">HTML interne</option>
+    </select></span>
+    <button class="icon-btn" title="degage ce champ">X</button>`;
+  div.querySelector("select").value = attr;
+  div.querySelector(".icon-btn").onclick = () => div.remove();
+  $("#fieldsList").appendChild(div);
+}
+$("#addField").onclick = () => addFieldRow();
+addFieldRow("titre", "h2", "text");
+addFieldRow("lien", "a", "href");
+
+/* ---------- Auto-parser : Trombonne remplit les cases ---------- */
+function applyAuto(data) {
+  document.querySelector('.tab[data-mode="advanced"]').click();
+  $("#container").value = data.container || "";
+  $("#fieldsList").innerHTML = "";
+  (data.fields || []).forEach(f => addFieldRow(f.name || "", f.selector || "", f.attr || "text"));
+  if (!$("#fieldsList").children.length) addFieldRow();
+  const n = data.count || 0;
+  const phrase = (data.mode === "container" && n)
+    ? "Yes ! J'ai trouve " + n + " blocs qui se repetent. Je t'ai rempli les cases, verifie et clique Lancer le scrap !"
+    : "Je t'ai pre-rempli des cases avec ce que j'ai trouve sur la page. Verifie et lance !";
+  sfxWin();
+  showStepBubbleLike(phrase);
+  speak(phrase);
+}
+function showStepBubbleLike(txt) {
+  // Trombonne pointe le bouton Lancer et affiche une bulle
+  const el = $("#run");
+  document.querySelectorAll(".tuto-highlight").forEach(e => e.classList.remove("tuto-highlight"));
+  if (el) el.classList.add("tuto-highlight");
+  moveToEl(el, () => {
+    $("#clippyBubble .btns").style.display = "none";
+    cText.textContent = txt;
+    cBubble.classList.toggle("below", clippy.getBoundingClientRect().top < 175);
+    cBubble.classList.remove("hidden");
+    clearTimeout(chatterHide);
+    chatterHide = setTimeout(() => { cBubble.classList.add("hidden"); document.querySelectorAll(".tuto-highlight").forEach(e => e.classList.remove("tuto-highlight")); }, 7000);
+  });
+}
+async function runAuto() {
+  const url = $("#url").value.trim();
+  if (!url) { sfxErr(); showMsg("Balance une URL en haut d'abord !", "err"); $("#url").focus(); return; }
+  const btn = $("#autoBtn"); const old = btn.textContent;
+  btn.disabled = true; btn.textContent = "Trombonne reflechit...";
+  showMsg("Trombonne analyse la page...", "info");
+  try {
+    const resp = await fetch("/api/analyze", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url, dynamic: $("#dynamic").checked, respect_robots: $("#robots").checked })
+    });
+    const data = await resp.json();
+    if (!resp.ok) { sfxErr(); showMsg("[x] " + (data.error || "Erreur."), "err"); return; }
+    clearMsg();
+    if ($("#thinkChk").checked && data.steps && data.steps.length) {
+      streamThink(data.steps, () => applyAuto(data));
+    } else {
+      applyAuto(data);
+    }
+  } catch (e) { sfxErr(); showMsg("[x] Erreur reseau : " + e.message, "err"); }
+  finally { btn.disabled = false; btn.textContent = old; }
+}
+$("#autoBtn").onclick = runAuto;
+
+/* Affiche le raisonnement de Trombonne ligne par ligne dans un petit terminal */
+function streamThink(steps, done) {
+  const box = $("#thinkBox");
+  box.style.display = "block";
+  box.innerHTML = '<div class="th-head">// Trombonne reflechit...</div>';
+  const cur = document.createElement("div");
+  cur.className = "ln cur";
+  box.appendChild(cur);
+  let i = 0;
+  (function next() {
+    if (i >= steps.length) {
+      cur.classList.remove("cur");
+      setTimeout(done, 450);
+      return;
+    }
+    const d = document.createElement("div");
+    d.className = "ln";
+    d.textContent = "> " + steps[i];
+    box.insertBefore(d, cur);
+    box.scrollTop = box.scrollHeight;
+    blip(520, 0.03, "square", 0.05); // petit tic de terminal (coupe si SON off)
+    i++;
+    setTimeout(next, 650 + Math.random() * 350);
+  })();
+}
+
+function showMsg(text, type="info") { const m = $("#msg"); m.textContent = text; m.className = "msg " + type; }
+function clearMsg() { $("#msg").className = "msg"; }
+
+$("#run").onclick = async () => {
+  clearMsg();
+  const url = $("#url").value.trim();
+  if (!url) { sfxErr(); showMsg("Eh oh, balance une URL d'abord :@", "err"); $("#url").focus(); return; }
+  const body = {
+    url, mode: currentMode, dynamic: $("#dynamic").checked, respect_robots: $("#robots").checked,
+    paginate: $("#paginate").checked,
+    max_pages: parseInt($("#maxPages").value, 10) || 5,
+    next_selector: $("#nextSelector").value.trim() || null,
+    clean_text: $("#cleanText").checked,
+    drop_empty: $("#dropEmpty").checked,
+    dedupe: $("#dedupe").checked,
+    price_to_number: $("#priceNum").checked,
+    enrich_phones: $("#enrichPhones").checked
+  };
+  if (currentMode === "simple") {
+    body.simple_fields = [...document.querySelectorAll("#simpleChecks input:checked")].map(i => i.value);
+    if (!body.simple_fields.length) { sfxErr(); showMsg("Allume au moins un bouton frero >_<", "err"); return; }
+  } else {
+    body.container = $("#container").value.trim();
+    body.fields = [...document.querySelectorAll("#fieldsList .field-row")].map(r => {
+      const [nameEl, selEl] = r.querySelectorAll("input");
+      return { name: nameEl.value.trim(), selector: selEl.value.trim(), attr: r.querySelector("select").value };
+    }).filter(f => f.selector);
+    if (!body.fields.length) { sfxErr(); showMsg("Mets au moins un champ avec un selecteur CSS", "err"); return; }
+  }
+  sfxGo();
+  const btn = $("#run");
+  btn.disabled = true; btn.innerHTML = '... CA GRATTE ...';
+  showMsg("On gratte... reste chaud", "info");
+  try {
+    const resp = await fetch("/api/scrape", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(body) });
+    const data = await resp.json();
+    if (!resp.ok) { sfxErr(); showMsg("[x] " + (data.error || "Erreur."), "err"); return; }
+    lastRows = data.rows; renderResults(data); clearMsg();
+    if (data.count) sfxWin(); else sfxErr();
+  } catch (e) { sfxErr(); showMsg("[x] Erreur reseau : " + e.message, "err"); }
+  finally { btn.disabled = false; btn.innerHTML = '&raquo; LANCER LE SCRAP &laquo;'; }
+};
+
+function renderResults(data) {
+  const res = $("#results"); res.classList.remove("hidden");
+  $("#count").textContent = data.count;
+  $("#pagesInfo").textContent = (data.pages && data.pages > 1) ? " (sur " + data.pages + " pages)" : "";
+  const table = $("#table");
+  if (!data.rows.length) {
+    table.innerHTML = "<tbody><tr><td class='empty'>Walou. R.A.S. Verifie l'URL/les selecteurs, ou coche Mode JS si le site charge au JavaScript.</td></tr></tbody>";
+    res.scrollIntoView({behavior:"smooth", block:"start"}); return;
+  }
+  const cols = data.columns;
+  const linkish = (v) => /^https?:\/\//.test(v) ? `<a href="${v}" target="_blank" rel="noopener">${escapeHtml(v)}</a>` : escapeHtml(v);
+  table.innerHTML =
+    "<thead><tr>" + cols.map(c => `<th>${escapeHtml(c)}</th>`).join("") + "</tr></thead>" +
+    "<tbody>" + data.rows.map(row => "<tr>" + cols.map(c => `<td>${linkish(String(row[c] ?? ""))}</td>`).join("") + "</tr>").join("") + "</tbody>";
+  res.scrollIntoView({behavior:"smooth", block:"start"});
+}
+function escapeHtml(s){ return s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+/* ---------- Trombonne, l'assistant a l'ancienne ---------- */
+const clippy = $("#clippy"), cBubble = $("#clippyBubble"), cText = $("#clippyText");
+let wanderTimer = null, inTuto = false, musicWasOn = false, tutoStep = 0;
+
+/* les pupilles suivent la souris */
+document.addEventListener("mousemove", (e) => {
+  const r = clippy.getBoundingClientRect();
+  const cx = r.left + r.width / 2, cy = r.top + r.height * 0.28;
+  const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
+  const dx = Math.cos(ang) * 2.3, dy = Math.sin(ang) * 2.3;
+  document.querySelectorAll("#clippy .pupil").forEach(p => p.setAttribute("transform", `translate(${dx.toFixed(1)},${dy.toFixed(1)})`));
+});
+
+/* synthese vocale FR - voix selectionnable + toggle VOIX */
+let bestVoice = null, chosenVoiceName = null, trombVoiceOn = true;
+try { trombVoiceOn = localStorage.getItem("voix") !== "0"; } catch (e) {}
+try { chosenVoiceName = localStorage.getItem("voixName") || null; } catch (e) {}
+
+function allVoices() { try { return speechSynthesis.getVoices() || []; } catch (e) { return []; } }
+function pickVoice() {
+  const vs = allVoices(); if (!vs.length) return;
+  const score = (v) => {
+    let s = 0; const n = (v.name || "").toLowerCase(), l = (v.lang || "").toLowerCase();
+    if (l.startsWith("fr-fr")) s += 6; else if (l.startsWith("fr")) s += 5; else if (l.includes("fr")) s += 3;
+    if (/google/.test(n)) s += 5;                 // voix Google = bien plus naturelle
+    if (/natural|neural|online|enhanced|premium/.test(n)) s += 5;
+    if (/(denise|henri|hortense|julie|paul|audrey|thomas|amelie|sonia|remi|eloise)/.test(n)) s += 2;
+    return s;
+  };
+  const frs = vs.filter(v => /fr/i.test(v.lang));
+  bestVoice = (frs.length ? frs : vs).slice().sort((a, b) => score(b) - score(a))[0] || null;
+  populateVoiceSelect();
+}
+function currentVoice() {
+  const vs = allVoices();
+  if (chosenVoiceName) { const v = vs.find(x => x.name === chosenVoiceName); if (v) return v; }
+  return bestVoice;
+}
+function populateVoiceSelect() {
+  const sel = document.getElementById("voiceSel"); if (!sel) return;
+  const vs = allVoices(); if (!vs.length) return;
+  const fr = vs.filter(v => /fr/i.test(v.lang)), other = vs.filter(v => !/fr/i.test(v.lang));
+  const cur = currentVoice();
+  sel.innerHTML = fr.concat(other).map(v => {
+    const label = (v.name.length > 26 ? v.name.slice(0, 25) + "…" : v.name) + " (" + v.lang + ")";
+    const seled = (cur && v.name === cur.name) ? " selected" : "";
+    return '<option value="' + v.name.replace(/"/g, "&quot;") + '"' + seled + '>' + label + '</option>';
+  }).join("");
+}
+try { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
+
+function speak(text, pitch) {
+  try {
+    if (!trombVoiceOn || !("speechSynthesis" in window)) return;
+    if (!bestVoice) pickVoice();
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "fr-FR"; u.rate = 0.95; u.pitch = pitch || 1.0;
+    const v = currentVoice(); if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+/* toggle VOIX + choix de la voix */
+const voixBtn = document.getElementById("voixBtn");
+if (voixBtn) {
+  voixBtn.textContent = "VOIX [" + (trombVoiceOn ? "ON" : "OFF") + "]";
+  voixBtn.onclick = (e) => {
+    e.preventDefault();
+    trombVoiceOn = !trombVoiceOn;
+    try { localStorage.setItem("voix", trombVoiceOn ? "1" : "0"); } catch (err) {}
+    voixBtn.textContent = "VOIX [" + (trombVoiceOn ? "ON" : "OFF") + "]";
+    if (trombVoiceOn) speak("C'est bon, tu m'entends la ?");
+    else { try { speechSynthesis.cancel(); } catch (er) {} }
+  };
+}
+const voiceSel = document.getElementById("voiceSel");
+if (voiceSel) {
+  voiceSel.onchange = () => {
+    chosenVoiceName = voiceSel.value;
+    try { localStorage.setItem("voixName", chosenVoiceName); } catch (err) {}
+    if (!trombVoiceOn) { trombVoiceOn = true; try { localStorage.setItem("voix", "1"); } catch (e) {} if (voixBtn) voixBtn.textContent = "VOIX [ON]"; }
+    speak("Voila, c'est ma nouvelle voix. Ca te va mieux comme ca ?");
+  };
+}
+
+/* balade : on reste en left/top partout pour que ca GLISSE (plus de teleportation) */
+function clampPos(left, top) {
+  const w = clippy.offsetWidth, h = clippy.offsetHeight;
+  left = Math.max(10, Math.min(left, window.innerWidth - w - 10));
+  top = Math.max(80, Math.min(top, window.innerHeight - h - 20));
+  return [left, top];
+}
+function setPos(left, top) {
+  [left, top] = clampPos(left, top);
+  clippy.style.right = "auto"; clippy.style.bottom = "auto";
+  clippy.style.left = left + "px"; clippy.style.top = top + "px";
+}
+function curPos() { const r = clippy.getBoundingClientRect(); return [r.left, r.top]; }
+function initClippyPos() { const [l, t] = curPos(); setPos(l, t); }  // fige la position de depart sans saut
+function placeCorner() { setPos(window.innerWidth - clippy.offsetWidth - 24, window.innerHeight - clippy.offsetHeight - 24); }
+
+function wander() {
+  if (inTuto) return;
+  cBubble.classList.add("hidden"); // cache l'ancienne phrase avant de bouger
+  // destination aleatoire sur TOUT l'ecran (il glisse grace a la transition CSS)
+  const w = clippy.offsetWidth, h = clippy.offsetHeight;
+  const left = 10 + Math.random() * Math.max(0, window.innerWidth - w - 20);
+  const top = 80 + Math.random() * Math.max(0, window.innerHeight - h - 100);
+  setPos(left, top);
+  // une fois arrive, faible chance d'une petite phrase MUETTE (texte seul)
+  setTimeout(() => { if (!inTuto && Math.random() < 0.3) showChatter(); }, 1500);
+  scheduleWander();
+}
+function scheduleWander() { wanderTimer = setTimeout(wander, 7000 + Math.random() * 7000); } // 7-14s, irregulier
+function startWander() { if (!wanderTimer) scheduleWander(); }
+function stopWander() { clearTimeout(wanderTimer); wanderTimer = null; }
+setTimeout(initClippyPos, 100);
+startWander();
+
+/* deplace Trombonne a cote d'un element puis callback */
+function moveToEl(el, cb) {
+  if (!el) {
+    clippy.style.right = "auto"; clippy.style.bottom = "auto";
+    clippy.style.left = (window.innerWidth / 2 - 33) + "px";
+    clippy.style.top = (Math.max(window.innerHeight / 2 - 60, 160)) + "px";
+    cBubble.classList.remove("below");
+    setTimeout(cb, 750); return;
+  }
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  setTimeout(() => {
+    const r = el.getBoundingClientRect();
+    let left = r.right + 16;
+    if (left > window.innerWidth - 80) left = Math.max(10, r.left - 80);
+    const top = Math.min(Math.max(r.top - 8, 150), window.innerHeight - 140);
+    clippy.style.right = "auto"; clippy.style.bottom = "auto";
+    clippy.style.left = left + "px"; clippy.style.top = top + "px";
+    cBubble.classList.toggle("below", top < 175);
+    setTimeout(cb, 780);
+  }, 430);
+}
+
+/* phrases random quand il se balade */
+const CHATTER = [
+  "Besoin d'un coup de main ? clique-moi !",
+  "Psst... t'as pense a respecter le robots.txt ?",
+  "Ca gratte dur aujourd'hui hein :D",
+  "Le mode avance c'est pas sorcier, demande-moi !",
+  "Nouveau sur le forum ? bienvenue la famille !",
+  "Shoutout a tous les vrais qui scrapent proprement",
+  "Je kiffe cette radio moi, grosse ambiance",
+  "Tu veux exporter en Excel ? clique sur le butin !",
+  "830 blazes connectes, ca pousse la mif !",
+  "Oublie pas de choisir ce que tu veux gratter, frero"
+];
+let chatterHide = null;
+function showChatter() {
+  if (inTuto) return;
+  const txt = CHATTER[Math.floor(Math.random() * CHATTER.length)];
+  cText.textContent = txt;
+  $("#clippyBubble .btns").style.display = "none";
+  cBubble.classList.toggle("below", clippy.getBoundingClientRect().top < 175);
+  cBubble.classList.remove("hidden");
+  // phrase de balade = MUETTE (il ne parle que quand on le sollicite : tuto / tchatche)
+  clearTimeout(chatterHide);
+  chatterHide = setTimeout(() => { if (!inTuto) cBubble.classList.add("hidden"); }, 4200);
+}
+
+/* etapes du tuto mode SIMPLE */
+const TUTO_SIMPLE = [
+  { el: null, text: "Salut ! C'est Trombonne. En mode simple c'est fastoche, regarde." },
+  { el: () => $("#url"), text: "D'abord, colle l'adresse de la page que tu veux gratter, ici." },
+  { el: () => $("#simpleChecks"), text: "Ensuite clique sur ce que tu veux recuperer : titres, liens, images... Chaque bouton allume devient une colonne." },
+  { el: () => $("#opt-dynamic"), text: "Si le site charge son contenu en JavaScript et que t'obtiens rien, coche Mode JS et relance." },
+  { el: () => $("#run"), text: "Et tu appuies sur Lancer le scrap. C'est tout ! A plus les vrais !" },
+];
+
+/* etapes du tuto mode avance */
+const TUTO = [
+  { el: null, text: "Salut ! Moi c'est Trombonne. Je vais t'expliquer le mode avance. Suis-moi et clique sur Suivant !" },
+  { el: () => $("#container"), text: "Ici tu mets le bloc qui se repete dans la page. Par exemple la carte d'un produit. Chaque bloc deviendra une ligne. Si tu sais pas, laisse vide." },
+  { el: () => document.querySelector("#fieldsList .field-row input"), text: "La, tu donnes un nom a ta colonne. Par exemple : titre, ou prix." },
+  { el: () => document.querySelectorAll("#fieldsList .field-row input")[1], text: "Ici le selecteur CSS : c'est l'adresse de l'element dans la page, comme point titre, ou h deux. Astuce : clic droit, inspecter, sur le site pour le trouver." },
+  { el: () => document.querySelector("#fieldsList .field-row select"), text: "Et la tu choisis quoi recuperer : le texte, un lien, une image, ou le HTML." },
+  { el: () => $("#addField"), text: "Clique ici pour rajouter d'autres colonnes a gratter, autant que tu veux." },
+  { el: () => $("#run"), text: "Et quand t'es chaud, tu appuies sur Lancer le scrap. Et voila, c'est dans la poche ! A plus les vrais !" },
+];
+
+let activeTuto = TUTO;
+function showStep(i) {
+  const s = activeTuto[i]; if (!s) { endTuto(); return; }
+  const el = typeof s.el === "function" ? s.el() : s.el;
+  document.querySelectorAll(".tuto-highlight").forEach(e => e.classList.remove("tuto-highlight"));
+  if (el) el.classList.add("tuto-highlight");
+  moveToEl(el, () => {
+    cBubble.classList.remove("hidden");
+    cText.textContent = s.text;
+    speak(s.text);
+    $("#clippyNext").textContent = (i >= activeTuto.length - 1) ? "Fini !" : "Suivant »";
+  });
+}
+function startTuto(which) {
+  if (inTuto) return;
+  which = which || currentMode;
+  inTuto = true; stopWander();
+  clearTimeout(chatterHide);
+  musicWasOn = musicOn; if (musicOn) stopMusic();
+  $("#clippyBubble .btns").style.display = "";
+  document.querySelector('.tab[data-mode="' + (which === "advanced" ? "advanced" : "simple") + '"]').click();
+  activeTuto = which === "advanced" ? TUTO : TUTO_SIMPLE;
+  tutoStep = 0; showStep(0);
+}
+function endTuto() {
+  inTuto = false;
+  cBubble.classList.add("hidden");
+  document.querySelectorAll(".tuto-highlight").forEach(e => e.classList.remove("tuto-highlight"));
+  try { speechSynthesis.cancel(); } catch (e) {}
+  if (musicWasOn) { musicOn = true; startMusic(); }
+  placeCorner(); startWander();
+}
+$("#clippyNext").onclick = () => { tutoStep++; if (tutoStep >= activeTuto.length) endTuto(); else showStep(tutoStep); };
+$("#clippySkip").onclick = endTuto;
+$("#tutoBtn").onclick = (e) => { e.preventDefault(); startTuto("advanced"); };
+$("#tutoBtnSimple").onclick = (e) => { e.preventDefault(); startTuto("simple"); };
+/* 5 clics d'affilee sur Trombonne -> sa femme Trombonna apparait */
+let trbClicks = 0, trbClickTimer = null;
+clippy.addEventListener("click", (e) => {
+  if (e.target.closest(".clippy-bubble")) return;
+  trbClicks++;
+  clearTimeout(trbClickTimer);
+  trbClickTimer = setTimeout(() => { trbClicks = 0; }, 1200);
+  if (trbClicks >= 5) { trbClicks = 0; spawnTrombonna(); }
+});
+
+/* Trombonna, la femme de Trombonne (easter egg) */
+let trombonna = null, trbnaHide = null;
+function makeTrombonna() {
+  if (trombonna) return trombonna;
+  trombonna = document.createElement("div");
+  trombonna.id = "trombonna";
+  trombonna.className = "bob";
+  trombonna.innerHTML = `
+    <div class="clippy-bubble" id="trbnaBubble"></div>
+    <svg viewBox="0 0 70 104" aria-hidden="true">
+      <path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42"
+            fill="none" stroke="#d9a6c2" stroke-width="8" stroke-linecap="round"/>
+      <path d="M24 92 V34 a14 14 0 0 1 28 0 V74 a9 9 0 0 1 -18 0 V42"
+            fill="none" stroke="#ffe3f1" stroke-width="3" stroke-linecap="round"/>
+      <!-- noeud rose -->
+      <path d="M38 12 l-9 -5 v10 z" fill="#ff5fa2" stroke="#c2185b" stroke-width="1.2"/>
+      <path d="M38 12 l9 -5 v10 z" fill="#ff5fa2" stroke="#c2185b" stroke-width="1.2"/>
+      <circle cx="38" cy="12" r="2.4" fill="#c2185b"/>
+      <!-- yeux + cils -->
+      <ellipse cx="30" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/>
+      <ellipse cx="47" cy="30" rx="8.5" ry="10.5" fill="#fff" stroke="#222" stroke-width="2"/>
+      <circle class="pupil" cx="30" cy="32" r="3.6" fill="#111"/>
+      <circle class="pupil" cx="47" cy="32" r="3.6" fill="#111"/>
+      <path d="M22 22 l-4 -3 M24 20 l-3 -4 M27 19 l-1 -4" stroke="#111" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M55 22 l4 -3 M53 20 l3 -4 M50 19 l1 -4" stroke="#111" stroke-width="1.4" stroke-linecap="round"/>
+      <!-- bouche rouge a levres -->
+      <path d="M31 45 q6 6 12 0 q-6 2 -12 0" fill="#e0245e"/>
+    </svg>`;
+  document.body.appendChild(trombonna);
+  // ses pupilles suivent la souris aussi
+  document.addEventListener("mousemove", (e) => {
+    if (!trombonna) return;
+    const r = trombonna.getBoundingClientRect();
+    const ang = Math.atan2(e.clientY - (r.top + r.height * 0.28), e.clientX - (r.left + r.width / 2));
+    const dx = Math.cos(ang) * 2.3, dy = Math.sin(ang) * 2.3;
+    trombonna.querySelectorAll(".pupil").forEach(p => p.setAttribute("transform", `translate(${dx.toFixed(1)},${dy.toFixed(1)})`));
+  });
+  return trombonna;
+}
+function spawnTrombonna() {
+  const t = makeTrombonna();
+  t.style.display = "block";
+  // se place a cote de Trombonne
+  const r = clippy.getBoundingClientRect();
+  let left = r.left - 86, top = r.top;
+  if (left < 10) left = r.right + 20;
+  left = Math.max(10, Math.min(left, window.innerWidth - t.offsetWidth - 10));
+  top = Math.max(80, Math.min(top, window.innerHeight - t.offsetHeight - 20));
+  t.style.left = left + "px"; t.style.top = top + "px";
+  const phrases = [
+    "Coucou ! Moi c'est Trombonna, la femme de Trombonne.",
+    "Rho Trombonne, tu dragues encore les scrapeurs ?",
+    "Salut la mif, c'est Trombonna, je garde un oeil sur mon homme !",
+  ];
+  const txt = phrases[Math.floor(Math.random() * phrases.length)];
+  const b = $("#trbnaBubble");
+  b.textContent = txt;
+  b.classList.toggle("below", r.top < 175);
+  b.classList.remove("hidden");
+  speak(txt, 1.6); // voix plus aigue
+  clearTimeout(trbnaHide);
+  trbnaHide = setTimeout(() => { b.classList.add("hidden"); if (trombonna) trombonna.style.display = "none"; }, 7000);
+}
+
+/* ---------- La Tchatche : chatbot local ---------- */
+const chatbox = $("#chatbox"), chatlog = $("#chatlog"), chatInput = $("#chatInput");
+let chatGreeted = false;
+
+function norm(s) { return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+function trombReply(raw) {
+  const m = norm(raw);
+  const has = (...k) => k.some(w => m.includes(w));
+  if (has("analyse", "parse", "detecte", "remplis", "tout seul", "automatique", "auto-")) {
+    document.querySelector('.tab[data-mode="advanced"]').click();
+    setTimeout(runAuto, 500);
+    return "Ok, je parse la page et je te remplis les cases, deux secondes !";
+  }
+  if (has("tuto", "aide", "aidez", "montre", "explique", "comment faire", "comprends pas", "je sais pas", "demo")) {
+    setTimeout(() => startTuto(currentMode), 500);
+    return "Tiens, je te lance le tuto direct, suis-moi a l'ecran !";
+  }
+  if (has("salut", "bonjour", "bonsoir", "yo", "wesh", "coucou", "hello", "hey", "cc ")) return "Yo, bien ou quoi ? Balance ta question, je suis la pour t'aider a gratter.";
+  if (has("selecteur", "css", "classe", "balise", "inspect")) return "Un selecteur CSS c'est l'adresse d'un element : point titre pour une classe, ou h2 pour une balise. Astuce : clic droit puis Inspecter sur le site pour le trouver.";
+  if (has("dynamique", "javascript", " js", "charge", "vide", "rien", "affiche pas", "marche pas", "bug")) return "Si la page charge son contenu en JavaScript, coche Mode JS et relance. Ca ouvre un vrai navigateur, c'est plus lent mais ca chope tout.";
+  if (has("robots", "legal", "droit", "interdit", "autorise", "rgpd", "ban")) return "Respecte le robots.txt et les conditions du site, scrape que ce que t'as le droit. Sinon tu te fais ban, et la c'est chaud.";
+  if (has("export", "csv", "excel", "json", "telecharg", "sauvegard", "enregistr")) return "Apres le scrap, clique sur CSV, Excel ou JSON dans le butin pour telecharger. CSV et Excel pour les tableaux, JSON pour les devs.";
+  if (has("conteneur", "bloc", "repete", "carte", "produit")) return "Le conteneur c'est le bloc qui se repete, genre une carte produit. Mets son selecteur et chaque bloc devient une ligne avec tes colonnes dedans.";
+  if (has("mode simple", "simple")) return "Le mode simple : tu coches titres, liens, images, et hop. Parfait pour debuter.";
+  if (has("mode avance", "avance", "avancee")) return "Le mode avance : tu definis tes propres colonnes avec des selecteurs CSS. Plus de controle. Dis tuto si tu veux que je montre.";
+  if (has("url", "adresse", "site")) return "Colle l'adresse complete de la page dans le champ du haut, puis choisis ce que tu veux gratter.";
+  if (has("qui es", "ton nom", "tu es qui", "tes qui", "trombonne")) return "Moi c'est Trombonne, l'assistant du forum depuis 2004. Je gratte, je kiffe le rap, et j'aide tout le monde a scraper.";
+  if (has("radio", "musique", "zik", "skyrock", "beat")) return "Clique sur RADIO 9.1 en haut pour lancer le son boom-bap. Grosse ambiance.";
+  if (has("merci", "thanks", "big up", "respect")) return "De rien frero, c'est cadeau. Big up a toi.";
+  if (has("bye", "ciao", "a plus", "au revoir", "tchao")) return "A plus les vrais, reviens quand tu veux !";
+  if (has("ca va", "comment vas", "tu vas bien")) return "Nickel et toi ? Pret a gratter du data ?";
+  if (has("commencer", "debuter", "premiere fois", "par ou")) return "Facile : un, colle une URL en haut. Deux, coche ce que tu veux en mode simple. Trois, clique Lancer le scrap. Dis tuto pour une demo.";
+  const fb = [
+    "Hmm je capte pas trop la. Demande-moi plutot : selecteur, mode JS, export, ou tape tuto.",
+    "La je seche un peu frero. Tape tuto et je te montre tout en direct.",
+    "Pas sur de comprendre, mais pour gratter : URL en haut, coche, Lancer. Besoin du tuto ?"
+  ];
+  return fb[Math.floor(Math.random() * fb.length)];
+}
+function chatAdd(who, text) {
+  const d = document.createElement("div");
+  d.className = who === "me" ? "me" : "trb";
+  d.innerHTML = "<b>" + (who === "me" ? "Toi" : "Trombonne") + " :</b> " + escapeHtml(text);
+  chatlog.appendChild(d); chatlog.scrollTop = chatlog.scrollHeight;
+}
+function openChat() {
+  chatbox.classList.remove("hidden");
+  if (!chatGreeted) {
+    chatGreeted = true;
+    const g = "Yo ! Moi c'est Trombonne. Pose-moi tes questions sur le scrap, ou tape tuto pour une demo.";
+    chatAdd("trb", g); speak(g);
+  }
+  setTimeout(() => chatInput.focus(), 60);
+}
+function sendChat() {
+  const v = chatInput.value.trim(); if (!v) return;
+  chatAdd("me", v); chatInput.value = "";
+  const rep = trombReply(v);
+  setTimeout(() => { chatAdd("trb", rep); speak(rep); }, 360);
+}
+$("#chatBtn").onclick = (e) => { e.preventDefault(); chatbox.classList.contains("hidden") ? openChat() : chatbox.classList.add("hidden"); };
+$("#chatClose").onclick = () => chatbox.classList.add("hidden");
+$("#chatSend").onclick = sendChat;
+chatInput.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); sendChat(); } });
+
+/* ---------- Cookies TikTok ---------- */
+$("#tkCookieToggle").onclick = (e) => { e.preventDefault(); $("#tkCookieBox").classList.toggle("hidden"); };
+function setCookieState(s) {
+  const el = $("#tkCookieState");
+  if (s && s.count) el.innerHTML = s.logged_in
+    ? '<b style="color:#006600">(connecte : ' + s.count + ' cookies, session OK)</b>'
+    : '<b style="color:#996600">(' + s.count + ' cookies, mais pas de session de connexion)</b>';
+  else el.textContent = "(recommande : moins de blocages)";
+}
+fetch("/api/tiktok/cookies").then(r => r.json()).then(setCookieState).catch(() => {});
+$("#tkSaveCookies").onclick = async () => {
+  const raw = $("#tkCookies").value.trim();
+  if (!raw) { sfxErr(); showMsg("Colle d'abord l'export JSON de tes cookies.", "err"); return; }
+  try {
+    const resp = await fetch("/api/tiktok/cookies", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ raw }) });
+    const data = await resp.json();
+    if (!resp.ok) { sfxErr(); showMsg("[x] " + (data.error || "Erreur."), "err"); return; }
+    sfxWin(); setCookieState(data);
+    showMsg("Cookies enregistres (" + data.saved + "). " + (data.logged_in ? "Session de connexion detectee, nickel !" : "Attention : pas de cookie 'sessionid', tu n'es peut-etre pas connecte."), "info");
+  } catch (e) { sfxErr(); showMsg("[x] Erreur reseau : " + e.message, "err"); }
+};
+
+/* ---------- Recherche TikTok OSINT ---------- */
+[["tkOnlyContact","opt-tkContact"],["tkProfiles","opt-tkProfiles"],["tkHeadless","opt-tkHeadless"]].forEach(([id,opt]) => {
+  $("#"+id).addEventListener("change", () => { syncOpt("#"+id, "#"+opt); sfxToggle($("#"+id).checked); });
+});
+$("#runTk").onclick = async () => {
+  clearMsg();
+  const keyword = $("#tkKeyword").value.trim();
+  if (!keyword) { sfxErr(); showMsg("Entre un mot-cle a rechercher sur TikTok.", "err"); $("#tkKeyword").focus(); return; }
+  const body = {
+    keyword,
+    max_results: parseInt($("#tkMax").value, 10) || 40,
+    fetch_profiles: $("#tkProfiles").checked,
+    headless: $("#tkHeadless").checked,
+    only_with_contact: $("#tkOnlyContact").checked
+  };
+  sfxGo();
+  const btn = $("#runTk"); btn.disabled = true; btn.innerHTML = "... CA CHERCHE SUR TIKTOK ...";
+  showMsg("Recherche TikTok en cours (ca peut prendre 30s a 2min)...", "info");
+  try {
+    const resp = await fetch("/api/tiktok", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(body) });
+    const data = await resp.json();
+    if (!resp.ok) { sfxErr(); showMsg("[x] " + (data.error || "Erreur."), "err"); return; }
+    lastRows = data.rows; renderResults(data); clearMsg();
+    if (data.count) sfxWin(); else sfxErr();
+  } catch (e) { sfxErr(); showMsg("[x] Erreur reseau : " + e.message, "err"); }
+  finally { btn.disabled = false; btn.innerHTML = "&raquo; LANCER LA RECHERCHE TIKTOK &laquo;"; }
+};
+
+/* ---------- Analyse video (OCR + audio) ---------- */
+$("#tkVideoToggle").onclick = (e) => { e.preventDefault(); $("#tkVideoBox").classList.toggle("hidden"); };
+[["tkOcr","opt-tkOcr"],["tkPrecision","opt-tkPrecision"],["tkAudio","opt-tkAudio"],["tkVidHeadless","opt-tkVidHeadless"]].forEach(([id,opt]) => {
+  $("#"+id).addEventListener("change", () => { syncOpt("#"+id, "#"+opt); sfxToggle($("#"+id).checked); });
+});
+$("#tkRunVideo").onclick = async () => {
+  const url = $("#tkVideoUrl").value.trim();
+  const out = $("#tkVideoResult");
+  if (!url) { sfxErr(); showMsg("Colle le lien d'une video TikTok.", "err"); return; }
+  if (!$("#tkOcr").checked && !$("#tkAudio").checked) { sfxErr(); showMsg("Coche OCR et/ou Transcription audio.", "err"); return; }
+  const btn = $("#tkRunVideo"); btn.disabled = true; const old = btn.textContent; btn.textContent = "Analyse en cours...";
+  out.innerHTML = '<span class="mini">Telechargement + analyse, patiente...</span>';
+  try {
+    const resp = await fetch("/api/tiktok/video", { method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ url, ocr: $("#tkOcr").checked, precision: $("#tkPrecision").checked, audio: $("#tkAudio").checked, headless: $("#tkVidHeadless").checked }) });
+    const data = await resp.json();
+    if (!resp.ok) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">[x] ' + escapeHtml(data.error || "Erreur.") + '</b>'; return; }
+    const c = data.contacts || {};
+    const lines = [];
+    const add = (lbl, arr) => { if (arr && arr.length) lines.push("<b>" + lbl + " :</b> " + escapeHtml(arr.join(", "))); };
+    add("Telephones", c.telephones); add("Snap", c.snapchat); add("Telegram", c.telegram);
+    add("WhatsApp", c.whatsapp); add("Insta", c.instagram); add("Mail", c.emails);
+    let html = lines.length
+      ? '<div style="background:#D8F0D0;border:1px solid #6a9a5a;padding:7px">' + lines.join("<br>") + "</div>"
+      : '<div class="mini">Aucun contact detecte dans cette video.</div>';
+    if (data.ocr_text) html += '<details style="margin-top:6px"><summary class="mini">Texte lu a l\'ecran (OCR)</summary><div style="white-space:pre-wrap;font-size:10px;max-height:160px;overflow:auto;border:1px solid #ccc;padding:5px;margin-top:4px">' + escapeHtml(data.ocr_text) + '</div></details>';
+    if (data.transcript) html += '<details style="margin-top:6px"><summary class="mini">Transcription audio</summary><div style="white-space:pre-wrap;font-size:10px;max-height:160px;overflow:auto;border:1px solid #ccc;padding:5px;margin-top:4px">' + escapeHtml(data.transcript) + '</div></details>';
+    out.innerHTML = html; sfxWin();
+  } catch (e) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">[x] Erreur reseau : ' + escapeHtml(e.message) + '</b>'; }
+  finally { btn.disabled = false; btn.textContent = old; }
+};
+
+/* ---------- OSINT : recherche d'un numero dans l'historique ---------- */
+fetch("/api/osint/stats").then(r => r.json()).then(s => {
+  $("#osintStats").textContent = "(" + s.total + " fiches en base, " + s.avec_numero + " avec numero)";
+}).catch(() => {});
+$("#osintBtn").onclick = async () => {
+  const num = $("#osintNum").value.trim(); const out = $("#osintResult");
+  if (!num) { sfxErr(); showMsg("Entre un numero a rechercher.", "err"); return; }
+  out.innerHTML = '<span class="mini">Recherche...</span>';
+  try {
+    const resp = await fetch("/api/osint/search", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ num }) });
+    const d = await resp.json();
+    if (!resp.ok) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">' + escapeHtml(d.error || "Erreur") + '</b>'; return; }
+    if (s_stats(d)) {} // maj stats
+    if (!d.results.length) { out.innerHTML = '<div class="mini">Aucune occurrence de ce numero dans l\'historique.</div>'; sfxErr(); return; }
+    let h = '<table><thead><tr><th>Date</th><th>Source</th><th>Recherche</th><th>Compte</th><th>Telephone</th><th>Autres</th></tr></thead><tbody>';
+    d.results.forEach(r => {
+      const compte = r.url ? '<a href="' + r.url + '" target="_blank" rel="noopener">' + escapeHtml(r.compte || r.url) + '</a>' : escapeHtml(r.compte || "");
+      h += '<tr><td>' + escapeHtml(r.date) + '</td><td>' + escapeHtml(r.source) + '</td><td>' + escapeHtml(r.recherche || "") + '</td><td>' + compte + '</td><td>' + escapeHtml(r.telephone || "") + '</td><td>' + escapeHtml(r.autres_contacts || "") + '</td></tr>';
+    });
+    h += '</tbody></table>';
+    out.innerHTML = '<div class="count-wrap" style="margin-bottom:4px">&raquo; ' + d.results.length + ' occurrence(s) trouvee(s)</div><div class="table-scroll">' + h + '</div>';
+    sfxWin();
+  } catch (e) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">Erreur reseau : ' + escapeHtml(e.message) + '</b>'; }
+};
+function s_stats(d) { if (d.stats) $("#osintStats").textContent = "(" + d.stats.total + " fiches en base, " + d.stats.avec_numero + " avec numero)"; }
+$("#osintNum").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("#osintBtn").click(); } });
+
+$("#linksBtn").onclick = async () => {
+  const out = $("#linksResult");
+  out.innerHTML = '<span class="mini">Analyse des liens entre comptes...</span>';
+  try {
+    const resp = await fetch("/api/osint/links");
+    const d = await resp.json();
+    if (!resp.ok) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">' + escapeHtml(d.error || "Erreur") + '</b>'; return; }
+    if (!d.clusters.length) { out.innerHTML = '<div class="mini">Aucun groupe de comptes lies pour l\'instant (il faut plusieurs resultats partageant un identifiant).</div>'; return; }
+    out.innerHTML = d.clusters.map((c, i) => {
+      const comptes = c.comptes.map(m => m.url
+        ? '<a href="' + m.url + '" target="_blank" rel="noopener">' + escapeHtml(m.compte || m.url) + '</a>'
+        : escapeHtml(m.compte || "?")).join(", ");
+      const partages = c.partages.map(escapeHtml).join(" &middot; ");
+      return '<div style="border:1px solid #6a9a5a;background:#D8F0D0;padding:6px 9px;margin-bottom:6px">'
+        + '<b>Groupe ' + (i + 1) + ' (' + c.taille + ' comptes)</b><br>' + comptes
+        + '<br><span class="mini">relies par : ' + partages + '</span></div>';
+    }).join("");
+    sfxWin();
+  } catch (e) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">Erreur reseau : ' + escapeHtml(e.message) + '</b>'; }
+};
+
+/* ---------- Generation de fiches (dossier imprimable -> PDF) ---------- */
+$("#ficheBtn").onclick = () => {
+  if (!lastRows.length) { sfxErr(); return; }
+  const esc = escapeHtml;
+  const cards = lastRows.map(r => {
+    const lignes = Object.entries(r).filter(([k, v]) => String(v ?? "").trim() !== "").map(([k, v]) => {
+      const sv = String(v);
+      const val = /^https?:\/\//.test(sv) ? '<a href="' + sv + '">' + esc(sv) + '</a>' : esc(sv);
+      return '<tr><th>' + esc(k) + '</th><td>' + val + '</td></tr>';
+    }).join("");
+    const titre = r.compte || r.nom || r.titre || "Fiche";
+    return '<div class="fiche"><h2>' + esc(String(titre)) + '</h2><table>' + lignes + '</table></div>';
+  }).join("");
+  const html = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Fiches OSINT</title><style>'
+    + 'body{font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#111;margin:24px}'
+    + 'h1{font-size:18px;margin:0 0 14px}'
+    + '.fiche{border:1px solid #888;border-radius:6px;padding:12px 16px;margin:0 0 16px;page-break-inside:avoid}'
+    + '.fiche h2{margin:0 0 8px;font-size:15px;color:#006699;border-bottom:1px solid #ddd;padding-bottom:4px}'
+    + 'table{border-collapse:collapse;width:100%}'
+    + 'th{text-align:left;width:170px;vertical-align:top;color:#555;padding:3px 10px 3px 0;font-weight:bold}'
+    + 'td{padding:3px 0;word-break:break-word}'
+    + 'button{font:bold 13px Arial;padding:6px 14px;margin-bottom:16px;cursor:pointer}'
+    + '@media print{.noprint{display:none}}'
+    + '</style></head><body>'
+    + '<h1>Fiches OSINT &mdash; ' + esc(new Date().toLocaleString("fr-FR")) + ' &mdash; ' + lastRows.length + ' fiche(s)</h1>'
+    + '<button class="noprint" onclick="window.print()">Imprimer / Enregistrer en PDF</button>'
+    + cards + '</body></html>';
+  const w = window.open("", "_blank");
+  if (!w) { showMsg("Le navigateur a bloque la fenetre des fiches (autorise les pop-ups).", "err"); return; }
+  w.document.write(html); w.document.close(); sfxWin();
+};
+
+document.querySelectorAll(".export-btns button:not(#ficheBtn)").forEach(b => {
+  b.onclick = async () => {
+    if (!lastRows.length) return;
+    const resp = await fetch("/api/export", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ format: b.dataset.fmt, rows: lastRows, filename: "scraping" }) });
+    if (!resp.ok) { const d = await resp.json(); showMsg(d.error || "Export impossible.", "err"); return; }
+    const blob = await resp.blob();
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+    a.download = "scraping." + (b.dataset.fmt === "xlsx" ? "xlsx" : b.dataset.fmt); a.click(); URL.revokeObjectURL(a.href);
+  };
+});
+</script>
+</body>
+</html>
