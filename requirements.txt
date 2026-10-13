@@ -6,6 +6,8 @@ lxml>=5.0
 openpyxl>=3.1
 # Enrichissement des numéros (pays/opérateur/type de ligne), hors-ligne.
 phonenumbers>=8.13
+# Comparaison de photos de profil (empreinte perceptuelle).
+imagehash>=4.3
 # Requis pour la recherche TikTok OSINT + le mode dynamique (sites JavaScript).
 # Après install : ./.venv/bin/playwright install chromium
 playwright>=1.42

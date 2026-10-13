@@ -262,16 +262,18 @@ def _harvest(blobs: list) -> dict[str, dict]:
     """
     authors: dict[str, dict] = {}
 
-    def ensure(uid: str, nick: str = "", sig: str = ""):
+    def ensure(uid: str, nick: str = "", sig: str = "", avatar: str = ""):
         a = authors.get(uid)
         if a is None:
-            a = {"pseudo": uid, "nom": nick, "bio": sig, "descriptions": [], "videos": []}
+            a = {"pseudo": uid, "nom": nick, "bio": sig, "avatar": avatar, "descriptions": [], "videos": []}
             authors[uid] = a
         else:
             if nick and not a["nom"]:
                 a["nom"] = nick
             if sig and not a["bio"]:
                 a["bio"] = sig
+            if avatar and not a.get("avatar"):
+                a["avatar"] = avatar
         return a
 
     def visit(d: dict):
@@ -285,7 +287,10 @@ def _harvest(blobs: list) -> dict[str, dict]:
                 break
 
         if author and author.get("uniqueId"):
-            a = ensure(author["uniqueId"], author.get("nickname", ""), author.get("signature", ""))
+            a = ensure(
+                author["uniqueId"], author.get("nickname", ""), author.get("signature", ""),
+                author.get("avatarLarger") or author.get("avatarMedium") or author.get("avatarThumb") or "",
+            )
             desc = d.get("desc")
             if isinstance(desc, str) and desc.strip():
                 a["descriptions"].append(desc.strip())
@@ -294,7 +299,10 @@ def _harvest(blobs: list) -> dict[str, dict]:
                 a["videos"].append(f"https://www.tiktok.com/@{author['uniqueId']}/video/{vid}")
 
         if uinfo and uinfo.get("uniqueId"):
-            ensure(uinfo["uniqueId"], uinfo.get("nickname", ""), uinfo.get("signature", ""))
+            ensure(
+                uinfo["uniqueId"], uinfo.get("nickname", ""), uinfo.get("signature", ""),
+                uinfo.get("avatarLarger") or uinfo.get("avatarMedium") or uinfo.get("avatarThumb") or "",
+            )
 
     for b in blobs:
         try:
@@ -541,6 +549,7 @@ def search_tiktok(payload: dict) -> dict:
             "exemple_description": a["descriptions"][0] if a["descriptions"] else "",
             "url_compte": f"https://www.tiktok.com/@{a['pseudo']}",
             "exemple_video": a["videos"][0] if a["videos"] else "",
+            "avatar_url": a.get("avatar", ""),  # pas affiché dans le tableau, sert à comparer les photos
         })
 
     if only_with_contact:

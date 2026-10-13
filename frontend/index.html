@@ -396,6 +396,19 @@
       <span class="mini">&mdash; regroupe les comptes qui partagent un identifiant (tel, mail, snap, telegram, insta, @mention, lien)</span>
       <div id="linksResult" style="margin-top:8px"></div>
     </div>
+    <div style="margin-top:10px;border-top:1px dashed #98AAB1;padding-top:8px">
+      <label class="lbl">Pivot pseudo <span class="mini">&mdash; cherche ce pseudo sur d'autres plateformes (pages publiques uniquement)</span></label>
+      <div class="field-row">
+        <input type="text" id="pivotUser" placeholder="un pseudo (sans @)" spellcheck="false">
+        <button class="ghost" id="pivotBtn" style="flex:none">Pivoter</button>
+      </div>
+      <div id="pivotResult" style="margin-top:8px"></div>
+    </div>
+    <div style="margin-top:10px;border-top:1px dashed #98AAB1;padding-top:8px">
+      <button class="ghost" id="photosBtn">Comparer les photos de profil</button>
+      <span class="mini">&mdash; sur les resultats TikTok affiches : detecte les comptes ayant la MEME photo (= probablement la meme personne)</span>
+      <div id="photosResult" style="margin-top:8px"></div>
+    </div>
   </div></div>
 
   <!-- Résultats -->
@@ -1252,6 +1265,46 @@ $("#linksBtn").onclick = async () => {
         + '<b>Groupe ' + (i + 1) + ' (' + c.taille + ' comptes)</b><br>' + comptes
         + '<br><span class="mini">relies par : ' + partages + '</span></div>';
     }).join("");
+    sfxWin();
+  } catch (e) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">Erreur reseau : ' + escapeHtml(e.message) + '</b>'; }
+};
+
+/* ---------- Pivot pseudo (autres plateformes) ---------- */
+$("#pivotUser").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("#pivotBtn").click(); } });
+$("#pivotBtn").onclick = async () => {
+  const u = $("#pivotUser").value.trim().replace(/^@/, ""); const out = $("#pivotResult");
+  if (!u) { sfxErr(); showMsg("Entre un pseudo a pivoter.", "err"); return; }
+  out.innerHTML = '<span class="mini">Recherche sur les plateformes...</span>';
+  try {
+    const resp = await fetch("/api/osint/pivot", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ username: u }) });
+    const d = await resp.json();
+    if (d.error) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">' + escapeHtml(d.error) + '</b>'; return; }
+    const badge = (e) => e === "existe" ? '<b style="color:#006600">TROUVE</b>' : (e === "absent" ? '<span style="color:#999">absent</span>' : '<span style="color:#996600">' + escapeHtml(e) + '</span>');
+    let h = '<table><thead><tr><th>Plateforme</th><th>Etat</th><th>Lien</th></tr></thead><tbody>';
+    d.results.forEach(r => {
+      const lien = r.etat === "existe" ? '<a href="' + r.url + '" target="_blank" rel="noopener">' + escapeHtml(r.url) + '</a>' : '<span class="mini">' + escapeHtml(r.url) + '</span>';
+      h += '<tr><td>' + escapeHtml(r.site) + '</td><td>' + badge(r.etat) + '</td><td>' + lien + '</td></tr>';
+    });
+    h += '</tbody></table>';
+    out.innerHTML = '<div class="mini" style="margin-bottom:4px">Liste volontairement restreinte aux plateformes verifiables de facon fiable sans connexion.</div><div class="table-scroll">' + h + '</div>';
+    sfxWin();
+  } catch (e) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">Erreur reseau : ' + escapeHtml(e.message) + '</b>'; }
+};
+
+/* ---------- Comparaison des photos de profil (resultats TikTok affiches) ---------- */
+$("#photosBtn").onclick = async () => {
+  const out = $("#photosResult");
+  const items = lastRows.filter(r => r.avatar_url).map(r => ({ compte: r.compte || "", avatar_url: r.avatar_url, url: r.url_compte || "" }));
+  if (!items.length) { sfxErr(); out.innerHTML = '<div class="mini">Lance d\'abord une recherche TikTok (il faut des photos de profil a comparer).</div>'; return; }
+  out.innerHTML = '<span class="mini">Telechargement et comparaison de ' + items.length + ' photos...</span>';
+  try {
+    const resp = await fetch("/api/osint/photos", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ items }) });
+    const d = await resp.json();
+    if (!resp.ok) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">' + escapeHtml(d.error || "Erreur") + '</b>'; return; }
+    if (!d.groupes.length) { out.innerHTML = '<div class="mini">' + d.analysees + ' photos analysees, aucun doublon detecte.</div>'; return; }
+    out.innerHTML = '<div class="count-wrap" style="margin-bottom:4px">&raquo; ' + d.groupes.length + ' groupe(s) avec la meme photo (' + d.analysees + ' analysees)</div>'
+      + d.groupes.map((g, i) => '<div style="border:1px solid #cc9900;background:#FFF4D0;padding:6px 9px;margin-bottom:6px"><b>Meme photo ' + (i + 1) + '</b> : '
+        + g.comptes.map(c => c.url ? '<a href="' + c.url + '" target="_blank" rel="noopener">' + escapeHtml(c.compte) + '</a>' : escapeHtml(c.compte)).join(", ") + '</div>').join("");
     sfxWin();
   } catch (e) { sfxErr(); out.innerHTML = '<b style="color:#cc0000">Erreur reseau : ' + escapeHtml(e.message) + '</b>'; }
 };

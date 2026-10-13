@@ -15,6 +15,8 @@ from scraper import ScrapeError, run_analyze, run_scrape
 import store
 from enrich import describe_phones
 from media import analyze_video
+from photos import compare_avatars
+from pivot import pivot_username
 from tiktok import cookies_status, extract_phones, save_cookies, search_tiktok
 
 app = FastAPI(title="Outil de Scraping", version="1.0")
@@ -76,6 +78,14 @@ class VideoRequest(BaseModel):
 
 class NumberSearchRequest(BaseModel):
     num: str
+
+
+class PivotRequest(BaseModel):
+    username: str
+
+
+class PhotosRequest(BaseModel):
+    items: list[dict] = []
 
 
 class ExportRequest(BaseModel):
@@ -174,6 +184,24 @@ def osint_search(req: NumberSearchRequest):
         return {"num": req.num, "results": store.search_number(req.num), "stats": store.stats()}
     except Exception as exc:  # noqa: BLE001
         return JSONResponse(status_code=500, content={"error": f"Erreur recherche : {exc}"})
+
+
+@app.post("/api/osint/pivot")
+def osint_pivot(req: PivotRequest):
+    try:
+        return pivot_username(req.username)
+    except Exception as exc:  # noqa: BLE001
+        return JSONResponse(status_code=500, content={"error": f"Erreur pivot : {exc}"})
+
+
+@app.post("/api/osint/photos")
+def osint_photos(req: PhotosRequest):
+    try:
+        return compare_avatars(req.items)
+    except ScrapeError as exc:
+        return JSONResponse(status_code=400, content={"error": str(exc)})
+    except Exception as exc:  # noqa: BLE001
+        return JSONResponse(status_code=500, content={"error": f"Erreur comparaison : {exc}"})
 
 
 @app.get("/api/osint/links")

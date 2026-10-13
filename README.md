@@ -130,6 +130,29 @@ comptes/posts où un numéro est apparu — les formats `06…` et `+33 6…` so
 reconnus comme le même numéro. Pratique pour relier des comptes entre plusieurs
 recherches dans le temps.
 
+### Liaison de comptes (pivot OSINT)
+
+Section **[ #OSINT ]**, plusieurs techniques sur données publiques :
+
+- **Comptes liés (réseau)** : regroupe les comptes qui partagent un identifiant
+  (téléphone, e-mail, Snap, Telegram, Insta, **@mention**, **lien**) à travers
+  tout l'historique. Révèle les réseaux de comptes.
+- **@mentions + liens** : les bios/descriptions sont fouillées pour les comptes
+  cités et les liens (Linktree, t.me, wa.me, snapchat.com/add, cash.app…), qui
+  servent de points de liaison.
+- **Pivot pseudo** : vérifie si un pseudo existe sur d'autres plateformes, via
+  **pages publiques uniquement**. Liste volontairement restreinte aux sites
+  vérifiables de façon fiable sans connexion (GitHub, GitLab, Telegram,
+  Snapchat, Linktree, Cash App) — les plateformes qui renvoient « 200 » même
+  pour un pseudo inexistant (Insta, X, YouTube…) sont écartées pour éviter les
+  faux positifs.
+- **Comparaison de photos de profil** : empreinte perceptuelle (pHash) des
+  avatars des résultats TikTok → détecte les comptes à la **même photo**
+  (= probablement la même personne).
+
+> Toujours **exclu** (abus de service / données illégales) : énumération de
+> comptes via les flux « mot de passe oublié » et bases de fuites.
+
 ### Robustesse
 
 TikTok sert parfois une page « Une erreur est survenue / Réessayer » au premier
